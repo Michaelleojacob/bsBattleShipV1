@@ -1,5 +1,5 @@
 {
-  "name": "myapp",
+  "name": "battleship",
   "version": "1.0.0",
   "main": "webpack.config.js",
   "scripts": {
