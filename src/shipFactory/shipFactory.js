@@ -13,7 +13,13 @@ export default function makeShip(leng) {
     return getStatus();
   };
 
-  return { getStatus, hit };
+  const isSunk = () => {
+    console.log(ship.every((item) => item === 'X'));
+    getStatus();
+    return ship.every((item) => item === 'X');
+  };
+
+  return { getStatus, hit, isSunk };
 }
 
 const shipObj = {
