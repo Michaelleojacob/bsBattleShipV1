@@ -7,7 +7,13 @@ export default function makeShip(leng) {
     return ship;
   };
 
-  return { ship, getStatus };
+  const hit = (num) => {
+    if (typeof num !== 'number') return 'error';
+    ship[ship.indexOf(num)] = 'X';
+    return getStatus();
+  };
+
+  return { getStatus, hit };
 }
 
 const shipObj = {

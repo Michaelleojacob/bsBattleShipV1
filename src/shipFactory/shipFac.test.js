@@ -34,3 +34,15 @@ test('submarine should be [1,2,3]', () => {
 test('patrol should be [1,2]', () => {
   expect(patrol.getStatus()).toStrictEqual([1, 2]);
 });
+
+//* testing hit
+
+test('hit should only take number params', () => {
+  expect(makeShip(2).hit('hello world')).toBe('error');
+});
+test('makeShip(2).hit(1) should return [X, 2]', () => {
+  expect(makeShip(2).hit(1)).toStrictEqual(['X', 2]);
+});
+test('makeShip(4).hit(4) should return [1,2,3,X]', () => {
+  expect(makeShip(4).hit(4)).toStrictEqual([1, 2, 3, 'X']);
+});
