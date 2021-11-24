@@ -1,29 +1,20 @@
-function Ship(name, size) {
-  const ship = Array.from(Array(size).keys()).map((i) => i + 1);
+import boardObj from './gameboardFac/boardObj';
 
-  const hit = (num) => {
-    ship[ship.indexOf(num)] = 'X';
-  };
-
-  const isSunk = () => ship.every((item) => item === 'X');
+function Gameboard() {
+  const board = { ...boardObj };
 
   return {
-    get name() {
-      return name;
+    get board() {
+      return { ...board };
     },
-    get size() {
-      return size;
-    },
-    get status() {
-      return [...ship];
-    },
-    get log() {
-      return console.log(ship);
-    },
-    hit,
-    isSunk,
   };
 }
 
-const mock = Ship('s', 4);
-console.log(mock.status);
+const mockBoard = Gameboard();
+
+console.log(mockBoard.board);
+
+console.log(typeof mockBoard.board);
+
+const lol = { a: 1, b: 2, c: 3 };
+console.log(lol.length);

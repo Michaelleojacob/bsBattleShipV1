@@ -2,6 +2,11 @@
   "name": "battleshipv1",
   "version": "1.0.0",
   "main": "webpack.config.js",
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "shipFac.test.js"
+    ]
+  },
   "scripts": {
     "test": "jest",
     "watch": "webpack --watch",
