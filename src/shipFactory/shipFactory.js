@@ -22,6 +22,9 @@ export default function Ship(name, size) {
     get log() {
       return console.log(ship);
     },
+    get nameAndSize() {
+      return { name, size };
+    },
     hit,
     isSunk,
   };
