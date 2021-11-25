@@ -1,17 +1,78 @@
 import boardObj from './gameboardFac/boardObj';
 import Ship from './shipFactory/shipFactory';
 
+function checkSize(size, coords) {
+  console.log(size);
+  console.log(coords);
+  console.log(typeof size);
+  console.log(typeof coords);
+  let state = false;
+  if (size !== coords.length) {
+    console.log('error size and coords.length do not match');
+    return state;
+  }
+  state = true;
+  return state;
+}
+
+// console.log(checkSize(2, [1, 2]));
+// console.log(checkSize(2, [1, 2, 3]));
+
+function checkCellIsEmpty(board, coordinates) {
+  let state = false;
+  if (!coordinates.every((coord) => board[coord] === 'empty')) {
+    console.log('error one or more cells were not empty');
+    return state;
+  }
+  state = true;
+  return state;
+}
+
+// const mockB = { ...boardObj };
+
+// checkCellIsEmpty(mockB, ['A0', 'A1', 'B9']);
+// console.log(checkCellIsEmpty(mockB, ['A0', 'A1', 'B9']));
+// console.log(checkCellIsEmpty(mockB, ['A0', 'A1', 'B9', 'A12']));
+// console.log(checkCellIsEmpty(mockB, ['A0', 'A1', 'B9', 'J9']));
+
+function checkCellExists(board, coordinates) {
+  let state = false;
+  if (!coordinates.every((coord) => Object.prototype.hasOwnProperty.call(board, coord))) {
+    console.log('error one or more cells do not exist');
+    return state;
+  }
+  state = true;
+  return state;
+}
+// console.log(checkCellExists(mockB, ['A0', 'A1', 'B9', 'J9']));
+// console.log(checkCellExists(mockB, ['A0', 'A1', 'B9', 'J9', 'P9']));
+
+function runAllChecks(shipSize, gboard, coordinates) {
+  let state = false;
+  if (
+    (checkSize(shipSize, coordinates.length) === true &&
+      checkCellIsEmpty(gboard, coordinates) === true &&
+      checkCellExists(gboard, coordinates)) === true
+  ) {
+    state = true;
+    return state;
+  }
+  console.log('one of the checks failed');
+  return state;
+}
+
 function Gameboard() {
   const board = { ...boardObj };
 
-  const placeShip = ({ name, size }, coords) => {
-    if (size !== coords.length) return console.log('error');
-    coords.forEach((coord) => {
-      board[coord] = name;
-    });
-    console.log({ ...board });
-    return { ...board };
-  };
+  function placeShip({ name, size }, coords) {
+    const checkAll = runAllChecks(size, board, coords);
+    if (checkAll) {
+      coords.forEach((coord) => {
+        board[coord] = name;
+      });
+    }
+    return 'error';
+  }
 
   return {
     get board() {
@@ -21,31 +82,8 @@ function Gameboard() {
   };
 }
 
-const carrier = Ship('carrier', 5);
+const b1 = Gameboard();
+const s1 = Ship('s1', 2);
 
-const mockBoard = Gameboard();
-
-mockBoard.placeShip(carrier, ['A1', 'A2', 'A3', 'A4', 'A5']);
-
-console.log(mockBoard.board.A1);
-
-console.log(Object.prototype.hasOwnProperty.call(mockBoard.board, 'l2'));
-
-const checkIfCellIsValid = (obj, coords) => {
-  let state = true;
-
-  coords.forEach((coord) => {
-    if (!Object.prototype.hasOwnProperty.call(obj, coord)) {
-      state = false;
-      return state;
-    }
-    return state;
-  });
-  return state;
-};
-
-console.log(checkIfCellIsValid(mockBoard.board, ['A1', 'A2', 'Z8']));
-
-// Gameboard.placeShip(ship, [coords])
-// ship = {ship.name, ship.length};
-// coords = ['a1', 'a2', 'a3', 'a4','a5'];
+// b1.placeShip(s1, ['A0']);
+b1.placeShip(s1, ['A0', 'A1']);

@@ -20,6 +20,7 @@ const carrier = Ship('carrier', 1);
 mBoard.placeShip(carrier, ['A0']);
 
 test('mBoard.placeShip changes the correct object key value pairs', () => {
+  console.log(mBoard.board);
   expect(mBoard.board).toHaveProperty('A0', 'carrier');
 });
 test('mBoard.board .every === empty should be false', () => {
@@ -48,9 +49,26 @@ const b3 = Gameboard();
 const s3 = Ship('s3', 5);
 test('b3 should error out if I place even 1/5 coordinates are invalid', () => {
   expect(b3.placeShip(s3, ['A0', 'A1', 'A2', 'A3', 'M12'])).toBe(
-    'error one or more coordinates are not valid spaces'
+    'error either coord does not exist, or space is not empty'
   );
 });
 test('b3.board should still be empty', () => {
   expect(Object.values(b3.board).every((item) => item === 'empty')).toBe(true);
+});
+
+const b4 = Gameboard();
+const s4one = Ship('s4one', 1);
+const s4two = Ship('s4two', 2);
+// const s4three = Ship('s4three', 3);
+// const s4four = Ship('s4four', 4);
+b4.placeShip(s4one, ['C8']);
+// b4.placeShip(s4two, ['C8', 'C9']);
+
+xtest('b4.placeShip(s4one, [C8]) changes b4.board.C8 to be s4one', () => {
+  expect(b4.board).toHaveProperty('C8', 's4one');
+});
+xtest('b4.placeShip(s4two, [C8, C9] to be error since space is not empty', () => {
+  expect(b4.placeShip(s4two, ['C8', 'C9'])).toBe(
+    'error either coord does not exist, or space is not empty'
+  );
 });
