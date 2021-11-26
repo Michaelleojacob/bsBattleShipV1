@@ -2,77 +2,39 @@ import boardObj from './gameboardFac/boardObj';
 import Ship from './shipFactory/shipFactory';
 
 function checkSize(size, coords) {
-  console.log(size);
-  console.log(coords);
-  console.log(typeof size);
-  console.log(typeof coords);
-  let state = false;
-  if (size !== coords.length) {
-    console.log('error size and coords.length do not match');
-    return state;
-  }
-  state = true;
-  return state;
+  const foo = size === coords.length;
+  if (!foo) return new Error('ship size and coords array do not match up');
+  return foo;
 }
 
-// console.log(checkSize(2, [1, 2]));
-// console.log(checkSize(2, [1, 2, 3]));
+console.log(checkSize(2, [1, 2]));
+console.log(checkSize(2, [1, 2, 3]));
+console.log(checkSize(2, [1]));
 
 function checkCellIsEmpty(board, coordinates) {
-  let state = false;
-  if (!coordinates.every((coord) => board[coord] === 'empty')) {
-    console.log('error one or more cells were not empty');
-    return state;
-  }
-  state = true;
-  return state;
+  const foo = coordinates.every((coord) => board[coord] === 'empty');
+  if (!foo) return new Error('cell is not empty');
+  return foo;
 }
 
-// const mockB = { ...boardObj };
-
-// checkCellIsEmpty(mockB, ['A0', 'A1', 'B9']);
-// console.log(checkCellIsEmpty(mockB, ['A0', 'A1', 'B9']));
-// console.log(checkCellIsEmpty(mockB, ['A0', 'A1', 'B9', 'A12']));
-// console.log(checkCellIsEmpty(mockB, ['A0', 'A1', 'B9', 'J9']));
+const mockB = { ...boardObj };
+console.log(checkCellIsEmpty(mockB, ['A0', 'A1', 'B9']));
+console.log(checkCellIsEmpty(mockB, ['A0', 'A1', 'B9', 'A12']));
+console.log(checkCellIsEmpty(mockB, ['A0', 'A1', 'B9', 'J9']));
+console.log(checkCellIsEmpty(mockB, ['A0', 'A1', 'B9', 'J9', 'P1']));
 
 function checkCellExists(board, coordinates) {
-  let state = false;
-  if (!coordinates.every((coord) => Object.prototype.hasOwnProperty.call(board, coord))) {
-    console.log('error one or more cells do not exist');
-    return state;
-  }
-  state = true;
-  return state;
+  const foo = coordinates.every((coord) => Object.prototype.hasOwnProperty.call(board, coord));
+  if (!foo) return new Error('cell does not exist');
+  return foo;
 }
-// console.log(checkCellExists(mockB, ['A0', 'A1', 'B9', 'J9']));
-// console.log(checkCellExists(mockB, ['A0', 'A1', 'B9', 'J9', 'P9']));
-
-function runAllChecks(shipSize, gboard, coordinates) {
-  let state = false;
-  if (
-    (checkSize(shipSize, coordinates.length) === true &&
-      checkCellIsEmpty(gboard, coordinates) === true &&
-      checkCellExists(gboard, coordinates)) === true
-  ) {
-    state = true;
-    return state;
-  }
-  console.log('one of the checks failed');
-  return state;
-}
+console.log(checkCellExists(mockB, ['A0', 'A1', 'B9', 'J9']));
+console.log(checkCellExists(mockB, ['A0', 'A1', 'B9', 'J9', 'P9']));
 
 function Gameboard() {
   const board = { ...boardObj };
 
-  function placeShip({ name, size }, coords) {
-    const checkAll = runAllChecks(size, board, coords);
-    if (checkAll) {
-      coords.forEach((coord) => {
-        board[coord] = name;
-      });
-    }
-    return 'error';
-  }
+  function placeShip({ name, size }, coords) {}
 
   return {
     get board() {
@@ -87,3 +49,4 @@ const s1 = Ship('s1', 2);
 
 // b1.placeShip(s1, ['A0']);
 b1.placeShip(s1, ['A0', 'A1']);
+// console.log(b1.board);
