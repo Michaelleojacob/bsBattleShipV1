@@ -25,7 +25,7 @@ const runAllChecks = (gameB, shipSize, coordinates) => {
   return allChecks;
 };
 
-function Gameboard() {
+export default function Gameboard() {
   const board = { ...boardObj };
 
   function placeShip({ name, size }, coords) {
@@ -49,5 +49,3 @@ function Gameboard() {
     placeShip,
   };
 }
-
-export default Gameboard();
