@@ -1,10 +1,13 @@
 export default function Ship(name, size) {
-  const ship = Array.from(Array(size).keys()).map((i) => i + 1);
+  const ship = Array.from(Array(size).keys());
 
   const hit = (num) => {
     ship[ship.indexOf(num)] = 'X';
     return [...ship];
-    // return ship.map((x) => x);
+  };
+
+  const setCoords = (coords) => {
+    ship.coordinates = coords;
   };
 
   const isSunk = () => ship.every((item) => item === 'X');
@@ -25,7 +28,12 @@ export default function Ship(name, size) {
     get nameAndSize() {
       return { name, size };
     },
+
+    get coords() {
+      return [...ship.coordinates];
+    },
     hit,
     isSunk,
+    setCoords,
   };
 }

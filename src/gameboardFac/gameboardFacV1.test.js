@@ -62,14 +62,17 @@ test('b3.board should still be empty', () => {
 const b4 = Gameboard();
 const s4one = Ship('s4one', 1);
 const s4two = Ship('s4two', 2);
-// const s4three = Ship('s4three', 3);
-// const s4four = Ship('s4four', 4);
 b4.placeShip(s4one, ['C8']);
-// b4.placeShip(s4two, ['C8', 'C9']);
 
 test('b4.placeShip(s4one, [C8]) changes b4.board.C8 to be s4one', () => {
   expect(b4.board).toHaveProperty('C8', 's4one');
 });
 test('b4.placeShip(s4two, [C8, C9] to be error since space is not empty', () => {
   expect(b4.placeShip(s4two, ['C8', 'C9'])).toBe('Error: one or more checks failed');
+});
+test('b4.board should not contain s4two', () => {
+  expect(Object.values(b4.board)).not.toHaveProperty('C8', 's4two');
+});
+test('b4.board should not contain s4two', () => {
+  expect(Object.values(b4.board)).not.toHaveProperty('C9', 's4two');
 });

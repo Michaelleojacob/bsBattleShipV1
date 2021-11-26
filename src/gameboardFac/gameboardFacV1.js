@@ -42,6 +42,11 @@ export default function Gameboard() {
     return { ...board };
   }
 
+  // function receiveAttack(cell) {
+  //   const shotFired = board[cell];
+  //   console.log(shotFired);
+  // }
+
   return {
     get board() {
       return { ...board };

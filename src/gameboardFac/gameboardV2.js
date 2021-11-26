@@ -1,4 +1,5 @@
 //* should be able to place ships at coordinates by calling ship factory
+
 //* gameboard should have a receiveAttack function ->
 //* takes a pair of coordinates.
 //* determines weather or not the attack hit a ship.
