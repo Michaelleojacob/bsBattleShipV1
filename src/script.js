@@ -28,6 +28,8 @@ const runAllChecks = (gameB, shipSize, coordinates) => {
 
 export default function Gameboard() {
   const board = { ...boardObj };
+  const legalMoves = { ...boardObj };
+  const recordAllShots = [];
 
   function placeShip(ship, coords) {
     const foo = runAllChecks(board, ship.size, coords);
@@ -41,11 +43,22 @@ export default function Gameboard() {
     return { ...board };
   }
 
+  function removeFromLegalMovesAndAddToRecordShots(id) {
+    delete legalMoves[id];
+    recordAllShots.push(id);
+    console.log({ ...legalMoves });
+    console.log([...recordAllShots]);
+  }
+
   function receiveAttack(cell) {
-    const shotFired = board[cell];
-    // console.log(shotFired);
-    shotFired.hit(1);
-    // console.log(shotFired.status);
+    const selectedShot = board[cell];
+    if (selectedShot === 'empty') {
+      console.log('miss');
+    }
+    if (selectedShot !== 'empty') {
+      selectedShot.hit(selectedShot.coords.indexOf(cell));
+    }
+    removeFromLegalMovesAndAddToRecordShots(cell);
   }
 
   return {
@@ -60,25 +73,7 @@ export default function Gameboard() {
 const b1 = Gameboard();
 const carrier = Ship('carrier', 5);
 b1.placeShip(carrier, ['A0', 'A1', 'A2', 'A3', 'A4']);
-console.log(carrier.coords);
-carrier.hit(carrier.coords.indexOf('A1'));
-console.log(carrier.status);
 b1.receiveAttack('A0');
-// console.log(carrier);
-// console.log(carrier.status);
-// s1.hit(1);
-// console.log(s1.status);
-
-// const o = {
-//   one: carrier,
-//   two: carrier,
-//   three: 'empty',
-// };
-
-// console.log(o);
-// o.one.hit(1);
-// console.log(o.one.status);
-// console.log(carrier.status);
-// o.two.hit(2);
-// console.log(o.one.status);
-// console.log(carrier.status);
+b1.receiveAttack('A1');
+b1.receiveAttack('A2');
+console.log(carrier.status);
