@@ -51,14 +51,23 @@ export default function Gameboard() {
   }
 
   function receiveAttack(cell) {
-    const selectedShot = board[cell];
-    if (selectedShot === 'empty') {
-      console.log('miss');
+    if (recordAllShots.includes(cell)) {
+      return 'error that shot has already been made';
     }
-    if (selectedShot !== 'empty') {
-      selectedShot.hit(selectedShot.coords.indexOf(cell));
+
+    function attackMissed() {
+      board[cell] = 'miss';
+      return removeFromLegalMovesAndAddToRecordShots(cell);
     }
-    removeFromLegalMovesAndAddToRecordShots(cell);
+    function attackLanded() {
+      board[cell].hit(board[cell].coords.indexOf(cell));
+      board[cell] = 'hit';
+      return removeFromLegalMovesAndAddToRecordShots(cell);
+    }
+
+    const lol = board[cell] === 'empty' ? attackMissed : attackLanded;
+
+    return lol;
   }
 
   return {
@@ -77,3 +86,4 @@ b1.receiveAttack('A0');
 b1.receiveAttack('A1');
 b1.receiveAttack('A2');
 console.log(carrier.status);
+console.log(b1.board);
