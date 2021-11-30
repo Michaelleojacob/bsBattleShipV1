@@ -26,7 +26,7 @@ const runAllChecks = (gameB, shipSize, coordinates) => {
   return allChecks;
 };
 
-export default function Gameboard() {
+export default function Gameboard(shipObj) {
   const board = { ...boardObj };
   const legalMoves = { ...boardObj };
   const recordAllShots = [];
@@ -36,7 +36,7 @@ export default function Gameboard() {
     if (!foo) return 'Error: one or more checks failed';
     if (foo) {
       coords.forEach((coord) => {
-        board[coord] = ship;
+        board[coord] = ship.name;
       });
       ship.setCoords(coords);
     }
@@ -46,28 +46,47 @@ export default function Gameboard() {
   function removeFromLegalMovesAndAddToRecordShots(id) {
     delete legalMoves[id];
     recordAllShots.push(id);
-    console.log({ ...legalMoves });
-    console.log([...recordAllShots]);
   }
 
   function receiveAttack(cell) {
     if (recordAllShots.includes(cell)) {
-      return 'error that shot has already been made';
+      console.log('not legal');
+      return 'error, move is not legal';
     }
-
-    function attackMissed() {
-      board[cell] = 'miss';
-      return removeFromLegalMovesAndAddToRecordShots(cell);
+    if (Object.prototype.hasOwnProperty.call(shipObj, board[cell])) {
+      console.log('hit');
+      const ship = shipObj[board[cell]];
+      console.log(ship);
+      // shipObj[board[cell]].hit(shipObj.board[cell].coords.indexOf(cell));
     }
-    function attackLanded() {
-      board[cell].hit(board[cell].coords.indexOf(cell));
-      board[cell] = 'hit';
-      return removeFromLegalMovesAndAddToRecordShots(cell);
+    if (board[cell] === 'empty') {
+      console.log('miss');
     }
+    return removeFromLegalMovesAndAddToRecordShots(cell);
+    // if (recordAllShots.includes(cell)) {
+    //   return 'error that shot has already been made';
+    // }
+    // const isEmpty = board[cell] === 'empty';
+    // function shotLanded() {
+    //   const shipExists = Object.prototype.hasOwnProperty.call(shipObj, board[cell]);
+    //   if (shipExists) {
+    //     const ship = shipObj[board[cell]];
+    //     ship.hit(ship.coords.indexOf(cell));
+    //     board[cell] = 'hit';
+    //   }
+    // }
+    // switch (isEmpty) {
+    //   case true:
+    //     board[cell] = 'miss';
+    //     break;
+    //   case false:
+    //     shotLanded();
+    //     break;
+    //   default:
+    //     break;
+    // }
 
-    const lol = board[cell] === 'empty' ? attackMissed : attackLanded;
-
-    return lol;
+    // return removeFromLegalMovesAndAddToRecordShots(cell);
   }
 
   return {
@@ -79,11 +98,24 @@ export default function Gameboard() {
   };
 }
 
-const b1 = Gameboard();
-const carrier = Ship('carrier', 5);
-b1.placeShip(carrier, ['A0', 'A1', 'A2', 'A3', 'A4']);
+const ships = {
+  carrier: Ship('carrier', 5),
+  battleship: Ship('battleship', 4),
+  destroyer: Ship('destroyer', 3),
+  submarine: Ship('submarine', 3),
+  patrol: Ship('patrol', 2),
+};
+
+const b1 = Gameboard(ships);
+b1.placeShip(ships.carrier, ['A0', 'A1', 'A2', 'A3', 'A4']);
+b1.placeShip(ships.battleship, ['B1', 'C1', 'D1', 'E1']);
 b1.receiveAttack('A0');
 b1.receiveAttack('A1');
+b1.receiveAttack('A1');
+b1.receiveAttack('A1');
 b1.receiveAttack('A2');
-console.log(carrier.status);
+b1.receiveAttack('B1');
+b1.receiveAttack('B0');
+b1.receiveAttack('B0');
+console.log(ships.carrier.status);
 console.log(b1.board);
