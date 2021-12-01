@@ -24,7 +24,7 @@ function randomVertical(shipsize) {
   return coords;
 }
 
-function placeShipRandomly({ size }) {
+function placeRandomly({ size }) {
   const fiftyfifty = Math.random() < 0.5;
   if (fiftyfifty) {
     return randomVertical(size);
@@ -35,4 +35,4 @@ function placeShipRandomly({ size }) {
   return 'error something went horribly wrong';
 }
 
-export default placeShipRandomly;
+export default placeRandomly;

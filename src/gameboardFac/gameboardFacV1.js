@@ -1,38 +1,42 @@
 import boardObj from './boardObj';
 import runAllChecks from './checks';
-import placeShipRandomly from './placeRandomly';
+import placeRandomly from './placeRandomly';
 
 export default function Gameboard(shipObj) {
   const board = { ...boardObj };
   const legalMoves = { ...boardObj };
   const recordAllShots = [];
 
+  function markBoard(shipToMark, coordinates) {
+    coordinates.forEach((coord) => {
+      board[coord] = shipToMark.name;
+    });
+    shipToMark.setCoords(coordinates);
+  }
+
   function placeShip(ship, coords) {
     const foo = runAllChecks(board, ship.size, coords);
     if (!foo) return 'Error: one or more checks failed';
     if (foo) {
-      coords.forEach((coord) => {
-        board[coord] = ship.name;
-      });
-      ship.setCoords(coords);
+      return markBoard(ship, coords);
     }
     return { ...board };
   }
   function randomlyPlaceShip(ship) {
-    const coordsToCheck = placeShipRandomly(ship);
+    const coordsToCheck = placeRandomly(ship);
     const didCoordsPass = runAllChecks(board, ship.size, coordsToCheck);
-    switch (didCoordsPass) {
-      case true:
-        coordsToCheck.forEach((coord) => {
-          board[coord] = ship.name;
-        });
-        break;
-      case false:
-        randomlyPlaceShip();
-        break;
-      default:
-        break;
+    if (!didCoordsPass) {
+      return randomlyPlaceShip(ship);
     }
+    if (didCoordsPass) {
+      console.log(coordsToCheck);
+      return markBoard(ship, coordsToCheck);
+    }
+    return 'error something went horribly wrong';
+  }
+
+  function randomlyPlaceAllShips() {
+    Object.values(shipObj).forEach((ship) => randomlyPlaceShip(ship));
   }
 
   function areAllShipsSunk() {
@@ -71,5 +75,6 @@ export default function Gameboard(shipObj) {
     placeShip,
     receiveAttack,
     randomlyPlaceShip,
+    randomlyPlaceAllShips,
   };
 }
