@@ -4,7 +4,8 @@
   "main": "webpack.config.js",
   "jest": {
     "modulePathIgnorePatterns": [
-      "shipFac.test.js"
+      "shipFac.test.js",
+      "gameboardFacV1.test.js"
     ]
   },
   "scripts": {

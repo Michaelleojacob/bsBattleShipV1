@@ -1,56 +1,57 @@
 import boardObj from './boardObj';
+import runAllChecks from './checks';
 
-function checkSize(size, coordsLength) {
-  const isMatchingSize = size === coordsLength;
-  return isMatchingSize;
-}
-
-function checkCellIsEmpty(board, coordinates) {
-  const areCellsEmpty = coordinates.every((coord) => board[coord] === 'empty');
-  return areCellsEmpty;
-}
-
-function checkCellExists(board, coordinates) {
-  const doCellsExist = coordinates.every((coord) =>
-    Object.prototype.hasOwnProperty.call(board, coord)
-  );
-  return doCellsExist;
-}
-
-const runAllChecks = (gameB, shipSize, coordinates) => {
-  const check1 = checkSize(shipSize, coordinates.length);
-  const check2 = checkCellIsEmpty(gameB, coordinates);
-  const check3 = checkCellExists(gameB, coordinates);
-  const allChecks = check1 && check2 && check3;
-  return allChecks;
-};
-
-export default function Gameboard() {
+export default function Gameboard(shipObj) {
   const board = { ...boardObj };
+  const legalMoves = { ...boardObj };
+  const recordAllShots = [];
 
-  function placeShip({ name, size }, coords) {
-    const foo = runAllChecks(board, size, coords);
-
+  function placeShip(ship, coords) {
+    const foo = runAllChecks(board, ship.size, coords);
     if (!foo) return 'Error: one or more checks failed';
-
     if (foo) {
       coords.forEach((coord) => {
-        board[coord] = name;
+        board[coord] = ship.name;
       });
+      ship.setCoords(coords);
     }
-
     return { ...board };
   }
 
-  // function receiveAttack(cell) {
-  //   const shotFired = board[cell];
-  //   console.log(shotFired);
-  // }
+  function areAllShipsSunk() {
+    return Object.values(shipObj).every((ship) => ship.isSunk());
+  }
+
+  function removeFromLegalMovesAndAddToRecordShots(id) {
+    delete legalMoves[id];
+    recordAllShots.push(id);
+  }
+
+  function receiveAttack(cell) {
+    if (recordAllShots.includes(cell)) {
+      return 'error, move is not legal';
+    }
+    if (Object.prototype.hasOwnProperty.call(shipObj, board[cell])) {
+      const ship = shipObj[board[cell]];
+      ship.hit(ship.coords.indexOf(cell));
+      removeFromLegalMovesAndAddToRecordShots(cell);
+      const checkIfAllShipsAreSunk = areAllShipsSunk();
+      const hitOrAllSunk = checkIfAllShipsAreSunk ? 'all ships are sunk!' : 'hit';
+      return hitOrAllSunk;
+    }
+    if (board[cell] === 'empty') {
+      board[cell] = 'miss';
+      removeFromLegalMovesAndAddToRecordShots(cell);
+      return 'miss';
+    }
+    return 'something went horribly wrong';
+  }
 
   return {
     get board() {
       return { ...board };
     },
     placeShip,
+    receiveAttack,
   };
 }
