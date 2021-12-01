@@ -25,7 +25,7 @@ test('b1.receiveAttack(J9) to be hit', () => {
   expect(b1.receiveAttack('J9')).toBe('miss');
 });
 test('b1.receiveAttack(J9) to be hit', () => {
-  expect(b1.receiveAttack('J9')).toBe('error, move is not legal');
+  expect(b1.receiveAttack('J9')).toBe('error illegal shot');
 });
 test('b1.receiveAttack(E5) to be hit', () => {
   expect(b1.receiveAttack('E5')).toBe('hit');
@@ -44,6 +44,9 @@ b2.receiveAttack('A1');
 b2.receiveAttack('A2');
 b2.receiveAttack('A3');
 b2.receiveAttack('A4');
+test('b2.recAtt(A5) to be miss', () => {
+  expect(b2.receiveAttack('A5')).toBe('miss');
+});
 
 b2.receiveAttack('E8');
 b2.receiveAttack('F8');
@@ -55,8 +58,15 @@ b2.receiveAttack('F4');
 b2.receiveAttack('F5');
 
 b2.receiveAttack('G0');
-b2.receiveAttack('H0');
+// b2.receiveAttack('H0');
+test('b2.recAtt(H0) to be hit', () => {
+  expect(b2.receiveAttack('H0')).toBe('hit');
+});
+
 b2.receiveAttack('I0');
+test('b2.recAtt(I0) to be illegal shot', () => {
+  expect(b2.receiveAttack('I0')).toBe('error illegal shot');
+});
 
 b2.receiveAttack('E5');
 // b2.receiveAttack('E6');

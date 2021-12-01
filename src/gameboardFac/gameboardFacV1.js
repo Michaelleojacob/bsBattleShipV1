@@ -1,5 +1,6 @@
 import boardObj from './boardObj';
 import runAllChecks from './checks';
+import placeShipRandomly from './placeRandomly';
 
 export default function Gameboard(shipObj) {
   const board = { ...boardObj };
@@ -17,6 +18,22 @@ export default function Gameboard(shipObj) {
     }
     return { ...board };
   }
+  function randomlyPlaceShip(ship) {
+    const coordsToCheck = placeShipRandomly(ship);
+    const didCoordsPass = runAllChecks(board, ship.size, coordsToCheck);
+    switch (didCoordsPass) {
+      case true:
+        coordsToCheck.forEach((coord) => {
+          board[coord] = ship.name;
+        });
+        break;
+      case false:
+        randomlyPlaceShip();
+        break;
+      default:
+        break;
+    }
+  }
 
   function areAllShipsSunk() {
     return Object.values(shipObj).every((ship) => ship.isSunk());
@@ -29,7 +46,7 @@ export default function Gameboard(shipObj) {
 
   function receiveAttack(cell) {
     if (recordAllShots.includes(cell)) {
-      return 'error, move is not legal';
+      return 'error illegal shot';
     }
     if (Object.prototype.hasOwnProperty.call(shipObj, board[cell])) {
       const ship = shipObj[board[cell]];
@@ -53,5 +70,6 @@ export default function Gameboard(shipObj) {
     },
     placeShip,
     receiveAttack,
+    randomlyPlaceShip,
   };
 }
