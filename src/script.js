@@ -43,30 +43,46 @@ const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 
 function breakThingsDown(cell) {
-  const [letter, num] = cell.split('');
-  console.log(letter, num);
+  const [letter, numIsString] = cell.split('');
+  const num = parseInt(numIsString, 10);
+  const arrOfLetters = [];
+  const arrOfNums = [];
 
   function UpperAndLowerLetters() {
-    const upperLetter = letters[letters.indexOf(letter) - 1];
-    const lowerLetter = letters[letters.indexOf(letter) + 1];
-    const arrOfLetters = [upperLetter, letter, lowerLetter];
-    return arrOfLetters;
+    if (letters.includes(letters[letters.indexOf(letter) - 1])) {
+      arrOfLetters.push(letters[letters.indexOf(letter) - 1]);
+    }
+    arrOfLetters.push(letter);
+    if (letters.includes(letters[letters.indexOf(letter) + 1])) {
+      arrOfLetters.push(letters[letters.indexOf(letter) + 1]);
+    }
   }
-
   function UpperAndLowerNumbers() {
-    //! NUM IS NOT TYPEOF NUMBER !!!!!!!!! !\\
-    //! NUM IS A STRING!!
-
-    console.log(nums);
-    console.log(num);
-    const upperNum = nums[num - 1];
-    const lowerNum = nums[num + 1];
-    const arrOfNums = [upperNum, num, lowerNum];
-    return arrOfNums;
+    if (nums.includes(nums[nums.indexOf(num) - 1])) {
+      arrOfNums.push(nums[nums.indexOf(num) - 1]);
+    }
+    arrOfNums.push(num);
+    if (nums.includes(nums[nums.indexOf(num) + 1])) {
+      arrOfNums.push(nums[nums.indexOf(num) + 1]);
+    }
   }
 
-  const lol = UpperAndLowerLetters();
-  const haha = UpperAndLowerNumbers();
-  console.log(lol, haha);
+  UpperAndLowerLetters();
+  UpperAndLowerNumbers();
+
+  console.log(arrOfLetters, arrOfNums);
+
+  function combineLettersAndNumbers() {
+    const newArr = [];
+    arrOfLetters.forEach((eachletter) => {
+      arrOfNums.forEach((eachnum) => {
+        newArr.push(eachletter + eachnum);
+      });
+    });
+    return newArr;
+  }
+  const foo = combineLettersAndNumbers();
+  console.log(foo);
 }
 breakThingsDown('B1');
+breakThingsDown('A0');
