@@ -39,10 +39,9 @@ console.log(b1.board);
 
 // we would want a0 a1 a2 b0 b2 c0 c1 c2
 
-const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-
 function breakThingsDown(cell) {
+  const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
   const [letter, numIsString] = cell.split('');
   const num = parseInt(numIsString, 10);
   const arrOfLetters = [];
