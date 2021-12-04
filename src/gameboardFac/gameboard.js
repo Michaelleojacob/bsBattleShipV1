@@ -38,8 +38,8 @@ export default function Gameboard(shipObj) {
       return randomlyPlaceShip(ship);
     }
     if (didCoordsPass) {
-      console.log(coordsToCheck);
-      return markBoard(ship, coordsToCheck);
+      // console.log(coordsToCheck);
+      return placeShip(ship, coordsToCheck);
     }
     return 'error something went horribly wrong';
   }
@@ -80,6 +80,12 @@ export default function Gameboard(shipObj) {
   return {
     get board() {
       return { ...board };
+    },
+    get getLegalMoves() {
+      return { ...legalMoves };
+    },
+    get getRecordAllShots() {
+      return [...recordAllShots];
     },
     placeShip,
     receiveAttack,

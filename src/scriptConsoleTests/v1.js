@@ -1,3 +1,7 @@
+//* this is testing markbufferzone
+//* and buffer zones in general
+//* uncomment and copy paste this into script.js
+
 // import boardObj from './gameboardFac/boardObj';
 // import runAllChecks from './gameboardFac/checks';
 // import placeRandomly from './gameboardFac/placeRandomly';
