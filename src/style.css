@@ -1,24 +1,26 @@
-#container {
+#playerboard,
+#botboard {
   display: grid;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   border: 1px solid black;
   grid-template-columns: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
+  margin-bottom: 10px;
 }
 
 .cell {
   border: 1px solid black;
 }
 
-.buffer {
+.pbuffer {
   background: rgb(176, 170, 238);
 }
 
-.carrier,
-.battleship,
-.destroyer,
-.submarine,
-.patrol {
+.pcarrier,
+.pbattleship,
+.pdestroyer,
+.psubmarine,
+.ppatrol {
   background: gray;
 }
