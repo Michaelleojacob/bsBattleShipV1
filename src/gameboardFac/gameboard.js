@@ -8,7 +8,11 @@ export default function Gameboard(shipObj) {
   const legalMoves = { ...boardObj };
   const recordAllShots = [];
 
-  function markBoard(shipToMark, coordinates) {
+  function markboardHitOrMiss(hitOrMiss, coordinate) {
+    board[coordinate] = hitOrMiss;
+  }
+
+  function markBoardWithShip(shipToMark, coordinates) {
     coordinates.forEach((coord) => {
       board[coord] = shipToMark.name;
     });
@@ -27,7 +31,7 @@ export default function Gameboard(shipObj) {
     if (foo) {
       const bufferZone = getBufferZoneArray(coords);
       markBufferZone(bufferZone);
-      return markBoard(ship, coords);
+      return markBoardWithShip(ship, coords);
     }
     return { ...board };
   }
@@ -38,7 +42,6 @@ export default function Gameboard(shipObj) {
       return randomlyPlaceShip(ship);
     }
     if (didCoordsPass) {
-      // console.log(coordsToCheck);
       return placeShip(ship, coordsToCheck);
     }
     return 'error something went horribly wrong';
@@ -67,10 +70,11 @@ export default function Gameboard(shipObj) {
       removeFromLegalMovesAndAddToRecordShots(cell);
       const checkIfAllShipsAreSunk = areAllShipsSunk();
       const hitOrAllSunk = checkIfAllShipsAreSunk ? 'all ships are sunk!' : 'hit';
+      markboardHitOrMiss('hit', cell);
       return hitOrAllSunk;
     }
     if (board[cell] === 'empty' || board[cell] === 'buffer') {
-      board[cell] = 'miss';
+      markboardHitOrMiss('miss', cell);
       removeFromLegalMovesAndAddToRecordShots(cell);
       return 'miss';
     }

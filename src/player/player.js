@@ -2,14 +2,33 @@ import mockShips from '../mockshipsObj/mockshipsObj';
 import gameboard from '../gameboardFac/gameboard';
 
 export default function Player() {
-  const playerships = mockShips;
+  const playerships = { ...mockShips };
   const playerboard = gameboard(playerships);
   playerboard.randomlyPlaceAllShips();
-  const { board, receiveAttack, getLegalMoves, getRecordAllShots } = playerboard;
+  const { receiveAttack } = playerboard;
   return {
-    board,
+    get getboard() {
+      return { ...playerboard.board };
+    },
+    get legalMoves() {
+      return { ...playerboard.getLegalMoves };
+    },
     receiveAttack,
-    getLegalMoves,
-    getRecordAllShots,
   };
 }
+
+//! failsafe => working version (legalmoves.length does not work)
+// export default function Player() {
+//   const playerships = { ...mockShips };
+//   const playerboard = gameboard(playerships);
+//   const { receiveAttack, getLegalMoves, getRecordAllShots } = playerboard;
+//   playerboard.randomlyPlaceAllShips();
+//   return {
+//     get getboard() {
+//       return { ...playerboard.board };
+//     },
+//     receiveAttack,
+//     getLegalMoves,
+//     getRecordAllShots,
+//   };
+// }

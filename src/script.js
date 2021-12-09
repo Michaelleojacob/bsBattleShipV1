@@ -1,32 +1,51 @@
 import './style.css';
+import Player from './player/player';
+import makeHiddenBoard from './domComponents/makeboards';
 import cached from './cacheDom/cacheDom';
-import dom from './domCreator/domCreator';
-import mb1 from './mockboards/board1';
-import mb2 from './mockboards/board2';
 
-const { playerboard, botboard } = cached;
+const { playerGridArea, botGridArea } = cached;
 
-function makeHidden(obj, parent, player = false) {
+const user = Player();
+
+const bot = Player();
+
+makeHiddenBoard(user.getboard, playerGridArea, true);
+
+makeHiddenBoard(bot.getboard, botGridArea, false);
+
+// call bot.receiveAttack(cell) =>
+// get return value
+// add to array which shows {cell : 'hit'} or {cell: 'miss'}
+
+// example:
+
+//  const result = bot.receiveAttack('E5') =>
+// if (result === 'hit') // markSpot();
+// if(result === 'miss') // markSpot();
+
+const getRandomLegalCell = (obj) => {
   const keys = Object.keys(obj);
-  keys.forEach((item) => {
-    if (player) {
-      const element = dom({ classes: [item, `p${obj[item]}`, 'cell'] });
-      parent.appendChild(element);
-    }
-    if (!player) {
-      const element = dom({ classes: [item, 'cell'] });
-      parent.appendChild(element);
-    }
-  });
+  return keys[Math.floor(Math.random() * keys.length)];
+};
+
+function sendUserAttack() {
+  const target = getRandomLegalCell(user.legalMoves);
+  user.receiveAttack(target);
+  makeHiddenBoard(user.getboard, playerGridArea, true);
 }
 
-makeHidden(mb1, playerboard, true);
-
-makeHidden(mb2, botboard);
-
-botboard.addEventListener('click', (e) => {
+function sendBotAttack(target) {
+  const thing = bot.receiveAttack(target);
+  if (thing === 'error illegal shot') return;
+  // console.log(thing);
+  // console.log(bot.getboard);
+  makeHiddenBoard(bot.getboard, botGridArea, false);
+  sendUserAttack();
+}
+function sendAttack(e) {
   if (e.target.classList.contains('cell')) {
-    console.log(e.target.classList[0]);
-    // board.receiveAttack(e.target.classList[0])
+    sendBotAttack(e.target.classList[0]);
   }
-});
+}
+
+botGridArea.addEventListener('click', sendAttack);

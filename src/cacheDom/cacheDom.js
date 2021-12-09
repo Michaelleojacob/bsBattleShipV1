@@ -1,13 +1,13 @@
 function cacheDom() {
   const container = document.querySelector('#container');
   const boards = container.querySelector('#boards');
-  const playerboard = boards.querySelector('#playerboard');
-  const botboard = boards.querySelector('#botboard');
+  const playerGridArea = boards.querySelector('#playerGridArea');
+  const botGridArea = boards.querySelector('#botGridArea');
   return {
     container,
     boards,
-    playerboard,
-    botboard,
+    playerGridArea,
+    botGridArea,
   };
 }
 
