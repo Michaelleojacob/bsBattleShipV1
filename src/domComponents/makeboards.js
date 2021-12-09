@@ -3,30 +3,35 @@ import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
 
 export default function makeHiddenBoard(obj, parent, player = false) {
   removeAllChildNodes(parent);
-  const keys = Object.keys(obj);
-  keys.forEach((item) => {
+  const entries = Object.entries(obj);
+  entries.forEach(([key, value]) => {
     if (player) {
-      const element = dom({ classes: [item, `p${obj[item]}`, 'cell'] });
+      const element = dom({ classes: [key, `p${value}`, 'cell'] });
       parent.appendChild(element);
     }
     if (!player) {
-      const element = dom({ classes: [item, 'cell'] });
-      parent.appendChild(element);
+      if (value === 'hit' || value === 'miss') {
+        const element = dom({ classes: [key, `${value}`, 'cell'] });
+        parent.appendChild(element);
+      } else {
+        const element = dom({ classes: [key, 'cell'] });
+        parent.appendChild(element);
+      }
     }
   });
 }
 
-//! failsafe, working prior to trying to impliment hit+miss to bot
+//! failsafe prior to trying to impliment hit and miss to bot board
 // export default function makeHiddenBoard(obj, parent, player = false) {
 //   removeAllChildNodes(parent);
-//   const keys = Object.keys(obj);
-//   keys.forEach((item) => {
+//   const entries = Object.entries(obj);
+//   entries.forEach(([key, value]) => {
 //     if (player) {
-//       const element = dom({ classes: [item, `p${obj[item]}`, 'cell'] });
+//       const element = dom({ classes: [key, `p${value}`, 'cell'] });
 //       parent.appendChild(element);
 //     }
 //     if (!player) {
-//       const element = dom({ classes: [item, 'cell'] });
+//       const element = dom({ classes: [key, 'cell'] });
 //       parent.appendChild(element);
 //     }
 //   });
