@@ -13,16 +13,6 @@ makeHiddenBoard(user.getboard, playerGridArea, true);
 
 makeHiddenBoard(bot.getboard, botGridArea, false);
 
-// call bot.receiveAttack(cell) =>
-// get return value
-// add to array which shows {cell : 'hit'} or {cell: 'miss'}
-
-// example:
-
-//  const result = bot.receiveAttack('E5') =>
-// if (result === 'hit') // markSpot();
-// if(result === 'miss') // markSpot();
-
 const getRandomLegalCell = (obj) => {
   const keys = Object.keys(obj);
   return keys[Math.floor(Math.random() * keys.length)];
@@ -37,8 +27,6 @@ function sendUserAttack() {
 function sendBotAttack(target) {
   const thing = bot.receiveAttack(target);
   if (thing === 'error illegal shot') return;
-  // console.log(thing);
-  // console.log(bot.getboard);
   makeHiddenBoard(bot.getboard, botGridArea, false);
   sendUserAttack();
 }
