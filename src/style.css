@@ -1,20 +1,20 @@
 #playerGridArea,
 #botGridArea {
   display: grid;
-  width: 200px;
-  height: 200px;
-  border: 1px solid black;
+  width: 350px;
+  height: 350px;
+  border: 1px solid rgb(34, 34, 34);
   grid-template-columns: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
   margin-bottom: 10px;
 }
 
 .cell {
-  border: 1px solid black;
+  border: 1px solid rgb(34, 34, 34);
 }
 
 .pbuffer {
-  background: rgb(176, 170, 238);
+  background: #ced4da;
 }
 
 .pcarrier,
@@ -22,15 +22,15 @@
 .pdestroyer,
 .psubmarine,
 .ppatrol {
-  background: gray;
+  background: rgb(68, 68, 68);
 }
 
 .phit,
 .hit {
-  background: red;
+  background: rgb(255, 133, 133);
 }
 
 .pmiss,
 .miss {
-  background: green;
+  background: rgb(133, 255, 179);
 }

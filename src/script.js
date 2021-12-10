@@ -11,7 +11,7 @@ const bot = Player();
 
 makeHiddenBoard(user.getboard, playerGridArea, true);
 
-makeHiddenBoard(bot.getboard, botGridArea, false);
+makeHiddenBoard(bot.getboard, botGridArea, true);
 
 const getRandomLegalCell = (obj) => {
   const keys = Object.keys(obj);
@@ -27,7 +27,7 @@ function sendUserAttack() {
 function sendBotAttack(target) {
   const thing = bot.receiveAttack(target);
   if (thing === 'error illegal shot') return;
-  makeHiddenBoard(bot.getboard, botGridArea, false);
+  makeHiddenBoard(bot.getboard, botGridArea, true);
   sendUserAttack();
 }
 function sendAttack(e) {
