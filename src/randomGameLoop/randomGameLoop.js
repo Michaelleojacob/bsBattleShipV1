@@ -19,7 +19,7 @@ export default function randomGameLoop() {
   };
 
   makeHiddenBoard(user.getboard, playerGridArea, true);
-  makeHiddenBoard(bot.getboard, botGridArea, true);
+  makeHiddenBoard(bot.getboard, botGridArea, false);
 
   function sendUserAttack() {
     const target = getRandomLegalCell(user.legalMoves);
@@ -34,7 +34,7 @@ export default function randomGameLoop() {
   function sendBotAttack(target) {
     const valueFromUserAttack = bot.receiveAttack(target);
     if (valueFromUserAttack === 'error illegal shot') return;
-    makeHiddenBoard(bot.getboard, botGridArea, true);
+    makeHiddenBoard(bot.getboard, botGridArea, false);
     if (valueFromUserAttack === 'all ships are sunk!') {
       console.log('You are victorious');
       clearEventListener(botGridArea);

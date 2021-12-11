@@ -7,7 +7,7 @@ export default function Player() {
     battleship: Ship('battleship', 4),
     destroyer: Ship('destroyer', 3),
     submarine: Ship('submarine', 3),
-    patrol: Ship('patrol', 3),
+    patrol: Ship('patrol', 2),
   };
   const playerboard = gameboard(playerships);
   playerboard.randomlyPlaceAllShips();
