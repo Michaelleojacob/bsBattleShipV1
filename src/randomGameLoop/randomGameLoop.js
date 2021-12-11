@@ -12,27 +12,33 @@ export default function randomGameLoop() {
   const user = Player();
   const bot = Player();
 
+  const clearEventListener = (element) => {
+    const clonedElement = element.cloneNode(true);
+    element.replaceWith(clonedElement);
+    return clonedElement;
+  };
+
   makeHiddenBoard(user.getboard, playerGridArea, true);
   makeHiddenBoard(bot.getboard, botGridArea, true);
 
   function sendUserAttack() {
     const target = getRandomLegalCell(user.legalMoves);
     const valueFromBotAttack = user.receiveAttack(target);
-    if (valueFromBotAttack === 'all ships are sunk!') {
-      // run end logic for bot winning
-      console.log('the bot is victorious');
-    }
     makeHiddenBoard(user.getboard, playerGridArea, true);
+    if (valueFromBotAttack === 'all ships are sunk!') {
+      console.log('the bot is victorious');
+      clearEventListener(botGridArea);
+    }
   }
 
   function sendBotAttack(target) {
     const valueFromUserAttack = bot.receiveAttack(target);
     if (valueFromUserAttack === 'error illegal shot') return;
-    if (valueFromUserAttack === 'all ships are sunk!') {
-      // run end logic for player winning
-      console.log('You are victorious');
-    }
     makeHiddenBoard(bot.getboard, botGridArea, true);
+    if (valueFromUserAttack === 'all ships are sunk!') {
+      console.log('You are victorious');
+      clearEventListener(botGridArea);
+    }
     sendUserAttack();
   }
   function sendAttack(e) {
@@ -41,104 +47,108 @@ export default function randomGameLoop() {
     }
   }
 
-  botGridArea.addEventListener('click', sendAttack);
+  botGridArea.addEventListener('click', sendAttack, true);
 }
 
-// user.receiveAttack('A0');
-// user.receiveAttack('A1');
-// user.receiveAttack('A2');
-// user.receiveAttack('A3');
-// user.receiveAttack('A4');
-// user.receiveAttack('A5');
-// user.receiveAttack('A6');
-// user.receiveAttack('A7');
-// user.receiveAttack('A8');
-// user.receiveAttack('A9');
+function lotsOfAttacks(name) {
+  name.receiveAttack('A0');
+  name.receiveAttack('A1');
+  name.receiveAttack('A2');
+  name.receiveAttack('A3');
+  name.receiveAttack('A4');
+  name.receiveAttack('A5');
+  name.receiveAttack('A6');
+  name.receiveAttack('A7');
+  name.receiveAttack('A8');
+  name.receiveAttack('A9');
 
-// user.receiveAttack('B0');
-// user.receiveAttack('B1');
-// user.receiveAttack('B2');
-// user.receiveAttack('B3');
-// user.receiveAttack('B4');
-// user.receiveAttack('B5');
-// user.receiveAttack('B6');
-// user.receiveAttack('B7');
-// user.receiveAttack('B8');
-// user.receiveAttack('B9');
+  name.receiveAttack('B0');
+  name.receiveAttack('B1');
+  name.receiveAttack('B2');
+  name.receiveAttack('B3');
+  name.receiveAttack('B4');
+  name.receiveAttack('B5');
+  name.receiveAttack('B6');
+  name.receiveAttack('B7');
+  name.receiveAttack('B8');
+  name.receiveAttack('B9');
 
-// user.receiveAttack('C0');
-// user.receiveAttack('C1');
-// user.receiveAttack('C2');
-// user.receiveAttack('C3');
-// user.receiveAttack('C4');
-// user.receiveAttack('C5');
-// user.receiveAttack('C6');
-// user.receiveAttack('C7');
-// user.receiveAttack('C8');
-// user.receiveAttack('C9');
+  name.receiveAttack('C0');
+  name.receiveAttack('C1');
+  name.receiveAttack('C2');
+  name.receiveAttack('C3');
+  name.receiveAttack('C4');
+  name.receiveAttack('C5');
+  name.receiveAttack('C6');
+  name.receiveAttack('C7');
+  name.receiveAttack('C8');
+  name.receiveAttack('C9');
 
-// user.receiveAttack('D0');
-// user.receiveAttack('D1');
-// user.receiveAttack('D2');
-// user.receiveAttack('D3');
-// user.receiveAttack('D4');
-// user.receiveAttack('D5');
-// user.receiveAttack('D6');
-// user.receiveAttack('D7');
-// user.receiveAttack('D8');
-// user.receiveAttack('D9');
+  name.receiveAttack('D0');
+  name.receiveAttack('D1');
+  name.receiveAttack('D2');
+  name.receiveAttack('D3');
+  name.receiveAttack('D4');
+  name.receiveAttack('D5');
+  name.receiveAttack('D6');
+  name.receiveAttack('D7');
+  name.receiveAttack('D8');
+  name.receiveAttack('D9');
 
-// user.receiveAttack('E0');
-// user.receiveAttack('E1');
-// user.receiveAttack('E2');
-// user.receiveAttack('E3');
-// user.receiveAttack('E4');
-// user.receiveAttack('E5');
-// user.receiveAttack('E6');
-// user.receiveAttack('E7');
-// user.receiveAttack('E8');
-// user.receiveAttack('E9');
+  name.receiveAttack('E0');
+  name.receiveAttack('E1');
+  name.receiveAttack('E2');
+  name.receiveAttack('E3');
+  name.receiveAttack('E4');
+  name.receiveAttack('E5');
+  name.receiveAttack('E6');
+  name.receiveAttack('E7');
+  name.receiveAttack('E8');
+  name.receiveAttack('E9');
 
-// user.receiveAttack('F0');
-// user.receiveAttack('F1');
-// user.receiveAttack('F2');
-// user.receiveAttack('F3');
-// user.receiveAttack('F4');
-// user.receiveAttack('F5');
-// user.receiveAttack('F6');
-// user.receiveAttack('F7');
-// user.receiveAttack('F8');
-// user.receiveAttack('F9');
+  name.receiveAttack('F0');
+  name.receiveAttack('F1');
+  name.receiveAttack('F2');
+  name.receiveAttack('F3');
+  name.receiveAttack('F4');
+  name.receiveAttack('F5');
+  name.receiveAttack('F6');
+  name.receiveAttack('F7');
+  name.receiveAttack('F8');
+  name.receiveAttack('F9');
 
-// user.receiveAttack('G0');
-// user.receiveAttack('G1');
-// user.receiveAttack('G2');
-// user.receiveAttack('G3');
-// user.receiveAttack('G4');
-// user.receiveAttack('G5');
-// user.receiveAttack('G6');
-// user.receiveAttack('G7');
-// user.receiveAttack('G8');
-// user.receiveAttack('G9');
+  name.receiveAttack('G0');
+  name.receiveAttack('G1');
+  name.receiveAttack('G2');
+  name.receiveAttack('G3');
+  name.receiveAttack('G4');
+  name.receiveAttack('G5');
+  name.receiveAttack('G6');
+  name.receiveAttack('G7');
+  name.receiveAttack('G8');
+  name.receiveAttack('G9');
 
-// user.receiveAttack('H0');
-// user.receiveAttack('H1');
-// user.receiveAttack('H2');
-// user.receiveAttack('H3');
-// user.receiveAttack('H4');
-// user.receiveAttack('H5');
-// user.receiveAttack('H6');
-// user.receiveAttack('H7');
-// user.receiveAttack('H8');
-// user.receiveAttack('H9');
+  name.receiveAttack('H0');
+  name.receiveAttack('H1');
+  name.receiveAttack('H2');
+  name.receiveAttack('H3');
+  name.receiveAttack('H4');
+  name.receiveAttack('H5');
+  name.receiveAttack('H6');
+  name.receiveAttack('H7');
+  name.receiveAttack('H8');
+  name.receiveAttack('H9');
 
-// user.receiveAttack('I0');
-// user.receiveAttack('I1');
-// user.receiveAttack('I2');
-// user.receiveAttack('I3');
-// user.receiveAttack('I4');
-// user.receiveAttack('I5');
-// user.receiveAttack('I6');
-// user.receiveAttack('I7');
-// user.receiveAttack('I8');
-// user.receiveAttack('I9');
+  name.receiveAttack('I0');
+  name.receiveAttack('I1');
+  name.receiveAttack('I2');
+  name.receiveAttack('I3');
+  name.receiveAttack('I4');
+  name.receiveAttack('I5');
+  name.receiveAttack('I6');
+  name.receiveAttack('I7');
+  name.receiveAttack('I8');
+  name.receiveAttack('I9');
+}
+
+// console.log(lotsOfAttacks);
