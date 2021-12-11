@@ -1,8 +1,14 @@
-import mockShips from '../mockshipsObj/mockshipsObj';
 import gameboard from '../gameboardFac/gameboard';
+import Ship from '../shipFactory/shipFactory';
 
 export default function Player() {
-  const playerships = { ...mockShips };
+  const playerships = {
+    carrier: Ship('carrier', 5),
+    battleship: Ship('battleship', 4),
+    destroyer: Ship('destroyer', 3),
+    submarine: Ship('submarine', 3),
+    patrol: Ship('patrol', 3),
+  };
   const playerboard = gameboard(playerships);
   playerboard.randomlyPlaceAllShips();
   const { receiveAttack } = playerboard;
@@ -12,6 +18,9 @@ export default function Player() {
     },
     get legalMoves() {
       return { ...playerboard.getLegalMoves };
+    },
+    get getShips() {
+      return { ...playerships };
     },
     receiveAttack,
   };
