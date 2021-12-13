@@ -1,4 +1,4 @@
-import Gameboard from './gameboardFacV1';
+import Gameboard from './gameboard';
 import mockShips from '../mockshipsObj/mockshipsObj';
 
 const ms1 = { ...mockShips };

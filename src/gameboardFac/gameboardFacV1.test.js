@@ -1,4 +1,4 @@
-import Gameboard from './gameboardFacV1';
+import Gameboard from './gameboard';
 import Ship from '../shipFactory/shipFactory';
 
 test('Gameboard to yeild an object', () => {

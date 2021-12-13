@@ -20,23 +20,3 @@ export default function makeHiddenBoard(obj, parent, player = false) {
     }
   });
 }
-
-//! failsafe prior to trying to impliment hit and miss to bot board
-// export default function makeHiddenBoard(obj, parent, player = false) {
-//   removeAllChildNodes(parent);
-//   const entries = Object.entries(obj);
-//   entries.forEach(([key, value]) => {
-//     if (player) {
-//       const element = dom({ classes: [key, `p${value}`, 'cell'] });
-//       parent.appendChild(element);
-//     }
-//     if (!player) {
-//       const element = dom({ classes: [key, 'cell'] });
-//       parent.appendChild(element);
-//     }
-//   });
-// }
-
-// how to use examples:
-// makeHidden(mb1, playerboard, true);
-// makeHidden(mb2, botboard);
