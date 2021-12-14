@@ -1,5 +1,6 @@
 import cached from '../cacheDom/cacheDom';
 import dom from '../domCreator/domCreator';
+import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
 
 function headerComponent() {
   const { header } = cached;
@@ -8,6 +9,7 @@ function headerComponent() {
   cached.title = title;
 
   function init() {
+    removeAllChildNodes(header);
     header.appendChild(title);
   }
 

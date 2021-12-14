@@ -1,5 +1,6 @@
 import cached from '../cacheDom/cacheDom';
 import dom from '../domCreator/domCreator';
+import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
 
 function footerComponent() {
   const { footer } = cached;
@@ -10,6 +11,7 @@ function footerComponent() {
   });
 
   function init() {
+    removeAllChildNodes(footer);
     footer.appendChild(message);
   }
 

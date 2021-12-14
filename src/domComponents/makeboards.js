@@ -1,7 +1,7 @@
 import dom from '../domCreator/domCreator';
 import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
 
-export default function makeHiddenBoard(obj, parent, player = false) {
+export default function renderBoard(obj, parent, player = false) {
   removeAllChildNodes(parent);
   const entries = Object.entries(obj);
   entries.forEach(([key, value]) => {
