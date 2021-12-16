@@ -27,13 +27,14 @@ export default function Gameboard(shipObj) {
 
   function placeShip(ship, coords) {
     const foo = runAllChecks(board, ship.size, coords);
-    if (!foo) return 'Error: one or more checks failed';
+    if (!foo) return false;
     if (foo) {
       const bufferZone = getBufferZoneArray(coords);
       markBufferZone(bufferZone);
-      return markBoardWithShip(ship, coords);
+      markBoardWithShip(ship, coords);
+      return true;
     }
-    return { ...board };
+    return false;
   }
   function randomlyPlaceShip(ship) {
     const coordsToCheck = placeRandomly(ship);

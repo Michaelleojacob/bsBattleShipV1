@@ -28,16 +28,17 @@ export default function gameStartModal() {
 
   function userClickedPlaceManually() {
     placeShipsManually.addEventListener('click', () => {
-      // console.log(e);
       removeModal();
-      randomGameLoop();
+      // this calls new modal
+      // displays the user grid,
+      // allows the user to place ships
     });
   }
 
   function userClickedPlaceRandomly() {
     placeShipsRandomly.addEventListener('click', () => {
       removeModal();
-      // ManualGameLoop();
+      randomGameLoop();
     });
   }
 

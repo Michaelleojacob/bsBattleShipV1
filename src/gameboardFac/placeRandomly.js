@@ -4,7 +4,7 @@ const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 const randomFromEntireArr = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const randomFromStartingPoint = (arr, size) => arr[Math.floor(Math.random() * (arr.length - size))];
 
-function randomHorizontal(shipsize) {
+function randomVertical(shipsize) {
   const pickRow = randomFromEntireArr(letters);
   const startingNum = randomFromStartingPoint(nums, shipsize);
   const coords = [];
@@ -14,7 +14,7 @@ function randomHorizontal(shipsize) {
   return coords;
 }
 
-function randomVertical(shipsize) {
+function randomHorizontal(shipsize) {
   const pickColumn = randomFromEntireArr(nums);
   const startingLetter = randomFromStartingPoint(nums, shipsize);
   const coords = [];
@@ -27,10 +27,10 @@ function randomVertical(shipsize) {
 function placeRandomly({ size }) {
   const fiftyfifty = Math.random() < 0.5;
   if (fiftyfifty) {
-    return randomVertical(size);
+    return randomHorizontal(size);
   }
   if (!fiftyfifty) {
-    return randomHorizontal(size);
+    return randomVertical(size);
   }
   return 'error something went horribly wrong';
 }

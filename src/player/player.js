@@ -10,7 +10,7 @@ export default function Player() {
     patrol: Ship('patrol', 2),
   };
   const playerboard = gameboard(playerships);
-  const { receiveAttack, randomlyPlaceAllShips } = playerboard;
+  const { receiveAttack, randomlyPlaceAllShips, placeShip } = playerboard;
   return {
     get getboard() {
       return { ...playerboard.board };
@@ -23,5 +23,6 @@ export default function Player() {
     },
     receiveAttack,
     randomlyPlaceAllShips,
+    placeShip,
   };
 }

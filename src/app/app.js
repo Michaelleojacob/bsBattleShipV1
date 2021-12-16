@@ -3,7 +3,7 @@ import myFooter from '../footer/footer';
 import Player from '../player/player';
 import renderBoard from '../domComponents/makeboards';
 import cached from '../cacheDom/cacheDom';
-import gameStartModal from '../startGameModal/startGameModal';
+// import gameStartModal from '../startGameModal/startGameModal';
 
 export default function app() {
   const user = Player();
@@ -16,6 +16,6 @@ export default function app() {
   myHeader.init();
   myFooter.init();
 
-  const modal = gameStartModal();
-  modal.displayModal();
+  // const modal = gameStartModal();
+  // modal.displayModal();
 }
