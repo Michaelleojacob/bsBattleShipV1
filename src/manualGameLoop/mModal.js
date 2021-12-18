@@ -42,7 +42,8 @@ function myManualModal() {
 
   modalGrid.addEventListener('click', (e) => {
     const target = e.target.classList[0];
-    handleMModalClick(target, rotate);
+    const thing = handleMModalClick(target, rotate, 5);
+    console.log(thing);
   });
 
   //* click to place ship logic
