@@ -10,8 +10,13 @@ function myManualModal() {
   const manualModal = dom({ attributes: [{ id: 'manualModal' }], classes: ['modal'] });
   const mModalContent = dom({ classes: ['mModalContent'] });
   const rotateBtn = dom({ tag: 'button', text: 'rotate', attributes: [{ id: 'rotate' }] });
+  const staticRotationText = dom({
+    text: 'ship placement: ',
+    attributes: [{ id: 'staticRotationText' }],
+  });
+  const dynamicRotationText = dom({ tag: 'span', attributes: [{ id: 'dynamicRotationText' }] });
   const modalGrid = dom({ attributes: [{ id: 'modalGrid' }], classes: ['grid'] });
-  const shipName = dom({ attributes: [{ id: 'shipName' }] });
+  const shipName = dom({ text: 'placeholder ship name', attributes: [{ id: 'shipName' }] });
   //* dom
 
   //* logic
@@ -24,6 +29,8 @@ function myManualModal() {
 
   function displayModal() {
     mModalContent.appendChild(rotateBtn);
+    staticRotationText.appendChild(dynamicRotationText);
+    mModalContent.appendChild(staticRotationText);
     mModalContent.appendChild(shipName);
     mModalContent.appendChild(modalGrid);
     manualModal.appendChild(mModalContent);
@@ -34,7 +41,7 @@ function myManualModal() {
     renderBoard(playerBoardObj, modalGrid, true);
   }
   //* rotate logic
-  const rotate = enableRotateFunctionality(rotateBtn);
+  const rotate = enableRotateFunctionality(rotateBtn, dynamicRotationText);
   rotate.init();
   //* rotate logic
 

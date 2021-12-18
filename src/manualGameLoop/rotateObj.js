@@ -1,5 +1,12 @@
-function enableRotateFunctionality(domElement) {
+function updateText(nodeElement, message) {
+  const thisNodeElement = nodeElement;
+  thisNodeElement.textContent = message;
+}
+
+function enableRotateFunctionality(domElement, textToUpdate) {
   const rotate = domElement;
+  const textdisplay = textToUpdate;
+  updateText(textdisplay, 'vertical');
   let isVert = true;
 
   const checkVert = () => isVert;
@@ -9,9 +16,11 @@ function enableRotateFunctionality(domElement) {
     switch (state) {
       case true:
         isVert = false;
+        updateText(textdisplay, 'horizontal');
         break;
       case false:
         isVert = true;
+        updateText(textdisplay, 'vertical');
         break;
       default:
         break;
