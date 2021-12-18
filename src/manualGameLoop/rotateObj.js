@@ -8,6 +8,7 @@ function enableRotateFunctionality(domElement, textToUpdate) {
   const textdisplay = textToUpdate;
   updateText(textdisplay, 'vertical');
   let isVert = true;
+  // let isVert = false;
 
   const checkVert = () => isVert;
 

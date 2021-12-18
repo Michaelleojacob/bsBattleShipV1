@@ -50,7 +50,7 @@ function myManualModal() {
     if (e.target.classList.contains('cell')) {
       const target = e.target.classList[0];
       const thing = handleMModalClick(target, rotate, 5);
-      // console.log(thing);
+      console.log(thing);
     }
   });
   //* click to place ship logic
@@ -58,19 +58,25 @@ function myManualModal() {
   modalGrid.addEventListener('mouseover', (e) => {
     if (e.target.classList.contains('cell')) {
       const target = e.target.classList[0];
-      const arr = handleMModalClick(target, rotate, 5);
-      if (arr === 'error') return 'error';
-      console.log(arr);
+      const shiplength = 5;
+      const arr = handleMModalClick(target, rotate, shiplength);
+      if (arr === 'error') return undefined;
+      let addClass;
+      if (arr.length === shiplength) addClass = 'highlighted';
+      if (arr.length !== shiplength) addClass = 'danger';
       // console.log(arr);
       arr.forEach((item) => {
-        modalGrid.querySelector(`.${item}`).classList.add('highlighted');
+        modalGrid.querySelector(`.${item}`).classList.add(addClass);
       });
     }
+    return true;
   });
   modalGrid.addEventListener('mouseout', (e) => {
-    if (e.target.classList.contains('highlighted')) {
+    if (e.target.classList.contains('highlighted') || e.target.classList.contains('danger')) {
       const foo = Array.from(modalGrid.childNodes);
-      foo.forEach((item) => item.classList.remove('highlighted'));
+      foo.forEach((item) => {
+        item.classList.remove('highlighted', 'danger');
+      });
     }
   });
 

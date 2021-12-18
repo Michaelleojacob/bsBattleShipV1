@@ -26,3 +26,7 @@
 .highlighted {
   background-color: lime;
 }
+
+.danger {
+  background-color: rgb(185, 74, 74);
+}
