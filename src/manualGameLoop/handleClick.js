@@ -12,7 +12,7 @@ function getVertOrHoizArrBasedOnSize(cell, rotateInstance, length) {
     const endPoint = nums[nums.indexOf(startNum) + size];
     if (endPoint === undefined) return console.log('error');
     const arr = [];
-    for (let i = startingPoint; i < endPoint; i += 1) {
+    for (let i = startingPoint; i <= endPoint; i += 1) {
       arr.push(startingLetter + i);
     }
     return arr;
@@ -22,7 +22,7 @@ function getVertOrHoizArrBasedOnSize(cell, rotateInstance, length) {
     const endPoint = letters[letters.indexOf(startingLetter) + size];
     if (endPoint === undefined) return console.log('error');
     const arr = [];
-    for (let i = letters.indexOf(startingPoint); i < letters.indexOf(endPoint); i += 1) {
+    for (let i = letters.indexOf(startingPoint); i <= letters.indexOf(endPoint); i += 1) {
       arr.push(letters[i] + startNum);
     }
     return arr;

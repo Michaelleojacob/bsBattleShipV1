@@ -46,14 +46,31 @@ function myManualModal() {
   //* rotate logic
 
   //* click to place ship logic
-
   modalGrid.addEventListener('click', (e) => {
-    const target = e.target.classList[0];
-    const thing = handleMModalClick(target, rotate, 5);
-    console.log(thing);
+    if (e.target.classList.contains('cell')) {
+      const target = e.target.classList[0];
+      const thing = handleMModalClick(target, rotate, 5);
+      console.log(thing);
+    }
   });
-
   //* click to place ship logic
+
+  modalGrid.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('cell')) {
+      const target = e.target.classList[0];
+      const arr = handleMModalClick(target, rotate, 5);
+      console.log(arr);
+      arr.forEach((item) => {
+        modalGrid.querySelector(`.${item}`).classList.add('highlighted');
+      });
+    }
+  });
+  modalGrid.addEventListener('mouseout', (e) => {
+    if (e.target.classList.contains('highlighted')) {
+      const foo = Array.from(modalGrid.childNodes);
+      foo.forEach((item) => item.classList.remove('highlighted'));
+    }
+  });
 
   //* logic
 
