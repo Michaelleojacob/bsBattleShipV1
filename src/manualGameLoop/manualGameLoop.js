@@ -15,11 +15,11 @@ function enableRotateBtnFunctionality() {
     switch (state) {
       case true:
         isVert = false;
-        console.log(checkVert());
+        // console.log(checkVert());
         break;
       case false:
         isVert = true;
-        console.log(checkVert());
+        // console.log(checkVert());
         break;
       default:
         break;
@@ -43,16 +43,16 @@ function enableRotateBtnFunctionality() {
 const bar = enableRotateBtnFunctionality();
 bar.init();
 
-function runManuallyPlaceShips(e) {
-  // console.log(e);
-  const getCoords = e.target.classList[0];
-  console.log(getCoords);
-  const verticleFive = getCoords.split('');
-  console.log(verticleFive);
+// function runManuallyPlaceShips(e) {
+//   // console.log(e);
+//   const getCoords = e.target.classList[0];
+//   // console.log(getCoords);
+//   // const verticleFive = getCoords.split('');
+//   // console.log(verticleFive);
 
-  const didShipGetPlaced = user.placeShip(user.getShips.carrier, [getCoords]);
-  console.log(didShipGetPlaced);
-  renderBoard(user.getboard, playerGridArea, true);
-}
+//   // const didShipGetPlaced = user.placeShip(user.getShips.carrier, [getCoords]);
+//   // console.log(didShipGetPlaced);
+//   renderBoard(user.getboard, playerGridArea, true);
+// }
 
-playerGridArea.addEventListener('click', runManuallyPlaceShips);
+// playerGridArea.addEventListener('click', runManuallyPlaceShips);

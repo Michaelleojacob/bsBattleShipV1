@@ -22,9 +22,6 @@ export default function Ship(name, size) {
     get status() {
       return [...ship];
     },
-    get log() {
-      return console.log(ship);
-    },
     get nameAndSize() {
       return { name, size };
     },

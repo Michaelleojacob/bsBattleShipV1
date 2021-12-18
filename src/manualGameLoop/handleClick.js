@@ -32,12 +32,14 @@ function getVertOrHoizArrBasedOnSize(cell, rotateInstance, length) {
 
   switch (isVert) {
     case true:
-      if (nums[nums.indexOf(startNum + size)] === undefined) return console.log('error');
+      if (nums[nums.indexOf(startNum + size)] === undefined) return 'error';
+      // if (nums[nums.indexOf(startNum + size)] === undefined) return console.log('error');
       resultArr = getVerticalCoords();
       break;
     case false:
-      if (letters[letters.indexOf(startingLetter) + size] === undefined)
-        return console.log('error');
+      if (letters[letters.indexOf(startingLetter) + size] === undefined) return 'error';
+      // if (letters[letters.indexOf(startingLetter) + size] === undefined)
+      // return console.log('error');
       resultArr = getHorizonalCoords();
       break;
     default:

@@ -50,7 +50,7 @@ function myManualModal() {
     if (e.target.classList.contains('cell')) {
       const target = e.target.classList[0];
       const thing = handleMModalClick(target, rotate, 5);
-      console.log(thing);
+      // console.log(thing);
     }
   });
   //* click to place ship logic
@@ -59,7 +59,9 @@ function myManualModal() {
     if (e.target.classList.contains('cell')) {
       const target = e.target.classList[0];
       const arr = handleMModalClick(target, rotate, 5);
+      if (arr === 'error') return 'error';
       console.log(arr);
+      // console.log(arr);
       arr.forEach((item) => {
         modalGrid.querySelector(`.${item}`).classList.add('highlighted');
       });
