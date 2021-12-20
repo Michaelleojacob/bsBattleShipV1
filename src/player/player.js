@@ -1,7 +1,8 @@
 import gameboard from '../gameboardFac/gameboard';
 import Ship from '../shipFactory/shipFactory';
 
-export default function Player() {
+export default function Player(playerName) {
+  const name = playerName;
   const playerships = {
     carrier: Ship('carrier', 5),
     battleship: Ship('battleship', 4),
@@ -20,6 +21,10 @@ export default function Player() {
     },
     get getShips() {
       return { ...playerships };
+    },
+    get getName() {
+      const thisname = name;
+      return thisname;
     },
     receiveAttack,
     randomlyPlaceAllShips,

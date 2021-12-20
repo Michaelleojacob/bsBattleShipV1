@@ -12,6 +12,9 @@ import './style.css';
 import Player from './player/player';
 import modal from './manualGameLoop/mModal';
 
-const user = Player();
-modal.displayModal();
-modal.renderModalBoard(user.getboard);
+const user = Player('user');
+modal.init(user);
+// modal.displayModal();
+// modal.allowClickToPlace();
+// modal.mouseOverEffect();
+// modal.renderModalBoard(user.getboard);

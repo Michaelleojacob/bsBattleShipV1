@@ -37,8 +37,9 @@ function myManualModal() {
     container.appendChild(manualModal);
     removeBackDrop();
   }
-  function renderModalBoard(playerBoardObj) {
-    renderBoard(playerBoardObj, modalGrid, true);
+  //! going to try removing the true/false
+  function renderModalBoard(boardObject) {
+    renderBoard(boardObject, modalGrid);
   }
   //* rotate logic
   const rotate = enableRotateFunctionality(rotateBtn, dynamicRotationText);
@@ -46,47 +47,71 @@ function myManualModal() {
   //* rotate logic
 
   //* click to place ship logic
-  modalGrid.addEventListener('click', (e) => {
-    if (e.target.classList.contains('cell')) {
-      const target = e.target.classList[0];
-      const thing = handleMModalClick(target, rotate, 5);
-      console.log(thing);
-    }
-  });
+  function allowClickToPlace(pObject) {
+    modalGrid.addEventListener('click', (e) => {
+      if (e.target.classList.contains('cell')) {
+        const target = e.target.classList[0];
+        const shiplength = 5;
+        const arr = handleMModalClick(target, rotate, shiplength);
+        if (arr.length !== shiplength) return 'error';
+        console.log(arr);
+        // board.placeship(ship, coords)
+        console.log(pObject);
+        const thing = pObject.placeShip(pObject.getShips.carrier, arr);
+        console.log(thing);
+        console.log(pObject.getboard);
+        renderModalBoard(pObject);
+      }
+      return false;
+    });
+  }
   //* click to place ship logic
+  //* mouseover logic
+  function mouseOverEffect() {
+    modalGrid.addEventListener('mouseover', (e) => {
+      if (e.target.classList.contains('cell')) {
+        const target = e.target.classList[0];
+        const shiplength = 5;
+        const arr = handleMModalClick(target, rotate, shiplength);
+        if (arr === 'error') return 'error';
+        let addClass;
+        if (arr.length === shiplength) addClass = 'highlighted';
+        if (arr.length !== shiplength) addClass = 'danger';
+        arr.forEach((item) => {
+          modalGrid.querySelector(`.${item}`).classList.add(addClass);
+        });
+      }
+      return false;
+    });
+    //* mouseover logic
+    //* mouseout logic
+    modalGrid.addEventListener('mouseout', (e) => {
+      if (e.target.classList.contains('highlighted') || e.target.classList.contains('danger')) {
+        const foo = Array.from(modalGrid.childNodes);
+        foo.forEach((item) => {
+          item.classList.remove('highlighted', 'danger');
+        });
+      }
+    });
+    //* mouseout logic
+  }
 
-  modalGrid.addEventListener('mouseover', (e) => {
-    if (e.target.classList.contains('cell')) {
-      const target = e.target.classList[0];
-      const shiplength = 5;
-      const arr = handleMModalClick(target, rotate, shiplength);
-      if (arr === 'error') return undefined;
-      let addClass;
-      if (arr.length === shiplength) addClass = 'highlighted';
-      if (arr.length !== shiplength) addClass = 'danger';
-      // console.log(arr);
-      arr.forEach((item) => {
-        modalGrid.querySelector(`.${item}`).classList.add(addClass);
-      });
-    }
-    return true;
-  });
-  modalGrid.addEventListener('mouseout', (e) => {
-    if (e.target.classList.contains('highlighted') || e.target.classList.contains('danger')) {
-      const foo = Array.from(modalGrid.childNodes);
-      foo.forEach((item) => {
-        item.classList.remove('highlighted', 'danger');
-      });
-    }
-  });
-
+  function init(playerObject) {
+    displayModal();
+    renderModalBoard(playerObject);
+    allowClickToPlace(playerObject);
+    mouseOverEffect();
+  }
   //* logic
 
   //* outward facing functions
   return {
+    init,
     displayModal,
     removeModal,
     renderModalBoard,
+    allowClickToPlace,
+    mouseOverEffect,
   };
   //* outward facing functions
 }
