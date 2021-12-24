@@ -10,10 +10,12 @@ import './style.css';
 
 //* testing manual modal
 import Player from './player/player';
-import modal from './manualGameLoop/mModal';
+import myManualModal from './manualGameLoop/mModal';
 
 const user = Player('user');
-modal.init(user);
+
+const userModal = myManualModal(user);
+userModal.init();
 // modal.displayModal();
 // modal.allowClickToPlace();
 // modal.mouseOverEffect();

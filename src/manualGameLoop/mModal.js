@@ -4,7 +4,7 @@ import renderBoard from '../domComponents/makeboards';
 import enableRotateFunctionality from './rotateObj';
 import handleMModalClick from './handleClick';
 
-function myManualModal() {
+export default function myManualModal(playerObject) {
   //* dom
   const { container, nonModalContent } = cached;
   const manualModal = dom({ attributes: [{ id: 'manualModal' }], classes: ['modal'] });
@@ -38,8 +38,8 @@ function myManualModal() {
     removeBackDrop();
   }
   //! going to try removing the true/false
-  function renderModalBoard(boardObject) {
-    renderBoard(boardObject, modalGrid);
+  function renderModalBoard() {
+    renderBoard(playerObject, modalGrid);
   }
   //* rotate logic
   const rotate = enableRotateFunctionality(rotateBtn, dynamicRotationText);
@@ -47,20 +47,18 @@ function myManualModal() {
   //* rotate logic
 
   //* click to place ship logic
-  function allowClickToPlace(pObject) {
+  function allowClickToPlace() {
     modalGrid.addEventListener('click', (e) => {
       if (e.target.classList.contains('cell')) {
         const target = e.target.classList[0];
         const shiplength = 5;
         const arr = handleMModalClick(target, rotate, shiplength);
         if (arr.length !== shiplength) return 'error';
-        console.log(arr);
-        // board.placeship(ship, coords)
-        console.log(pObject);
-        const thing = pObject.placeShip(pObject.getShips.carrier, arr);
-        console.log(thing);
-        console.log(pObject.getboard);
-        renderModalBoard(pObject);
+        playerObject.placeShip(playerObject.getShips.carrier, arr);
+        // const thing = playerObject.placeShip(playerObject.getShips.carrier, arr);
+        // console.log(thing);
+        console.log(playerObject.getboard);
+        renderModalBoard(playerObject.getboard);
       }
       return false;
     });
@@ -69,6 +67,8 @@ function myManualModal() {
   //* mouseover logic
   function mouseOverEffect() {
     modalGrid.addEventListener('mouseover', (e) => {
+      // \/ line under this is excessive -  should just need to run once hypothetically. \/
+      const currentPlayerBoard = playerObject.getboard;
       if (e.target.classList.contains('cell')) {
         const target = e.target.classList[0];
         const shiplength = 5;
@@ -78,6 +78,12 @@ function myManualModal() {
         if (arr.length === shiplength) addClass = 'highlighted';
         if (arr.length !== shiplength) addClass = 'danger';
         arr.forEach((item) => {
+          if (currentPlayerBoard[item] === 'empty') {
+            modalGrid.querySelector(`.${item}`).classList.add('highlighted');
+          }
+          if (currentPlayerBoard[item] !== 'empty') {
+            modalGrid.querySelector(`.${item}`).classList.add('danger');
+          }
           modalGrid.querySelector(`.${item}`).classList.add(addClass);
         });
       }
@@ -96,10 +102,10 @@ function myManualModal() {
     //* mouseout logic
   }
 
-  function init(playerObject) {
+  function init() {
     displayModal();
-    renderModalBoard(playerObject);
-    allowClickToPlace(playerObject);
+    renderModalBoard();
+    allowClickToPlace();
     mouseOverEffect();
   }
   //* logic
@@ -115,6 +121,3 @@ function myManualModal() {
   };
   //* outward facing functions
 }
-
-const modal = myManualModal();
-export default modal;
