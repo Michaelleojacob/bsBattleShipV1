@@ -1,4 +1,4 @@
-function getVertOrHoizArrBasedOnSize(cell, rotateInstance, length) {
+export default function getVertOrHoizArrBasedOnSize(cell, rotateInstance, length) {
   const isVert = rotateInstance.getVert;
   const shipSize = parseInt(length, 10);
   const [startLetter, stringNum] = cell.split('');
@@ -44,4 +44,3 @@ function getVertOrHoizArrBasedOnSize(cell, rotateInstance, length) {
   }
   return resultArr;
 }
-export default getVertOrHoizArrBasedOnSize;

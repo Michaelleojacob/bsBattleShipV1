@@ -3,7 +3,7 @@ function updateText(nodeElement, message) {
   thisNodeElement.textContent = message;
 }
 
-function enableRotateFunctionality(domElement, textToUpdate) {
+export default function enableRotateFunctionality(domElement, textToUpdate) {
   const rotate = domElement;
   const textdisplay = textToUpdate;
   updateText(textdisplay, 'vertical');
@@ -44,5 +44,3 @@ function enableRotateFunctionality(domElement, textToUpdate) {
     end: removeEventFromRotateBtn,
   };
 }
-
-export default enableRotateFunctionality;
