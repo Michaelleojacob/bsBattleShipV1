@@ -1,27 +1,27 @@
 import createModalDom from './domModal';
+import arrayBasedOnSize from './getArrayBasedOnSize';
 
-export default function mouseOverEffect() {
+export default function createMouseOverEffect(boardObject) {
   //* dom
   const modalDom = createModalDom();
   const modalDomObject = modalDom.getModalDomPieces();
-  const { modalGrid, rotate } = modalDomObject;
+  const { modalGrid } = modalDomObject;
   //* dom
 
   modalGrid.addEventListener('mouseover', (e) => {
-    const currentPlayerBoard = playerObject.getboard;
     if (e.target.classList.contains('cell')) {
       const target = e.target.classList[0];
       const shiplength = 5;
-      const arr = handleMModalClick(target, rotate, shiplength);
+      const arr = arrayBasedOnSize(target, shiplength);
       if (arr === 'error') return 'error';
       let addClass;
       if (arr.length === shiplength) addClass = 'highlighted';
       if (arr.length !== shiplength) addClass = 'danger';
       arr.forEach((item) => {
-        if (currentPlayerBoard[item] === 'empty') {
+        if (boardObject[item] === 'empty') {
           modalGrid.querySelector(`.${item}`).classList.add('highlighted');
         }
-        if (currentPlayerBoard[item] !== 'empty') {
+        if (boardObject[item] !== 'empty') {
           modalGrid.querySelector(`.${item}`).classList.add('danger');
         }
         modalGrid.querySelector(`.${item}`).classList.add(addClass);
@@ -29,8 +29,6 @@ export default function mouseOverEffect() {
     }
     return false;
   });
-  //* mouseover logic
-  //* mouseout logic
   modalGrid.addEventListener('mouseout', (e) => {
     if (e.target.classList.contains('highlighted') || e.target.classList.contains('danger')) {
       const foo = Array.from(modalGrid.childNodes);
@@ -39,5 +37,4 @@ export default function mouseOverEffect() {
       });
     }
   });
-  //* mouseout logic
 }

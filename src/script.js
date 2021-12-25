@@ -16,7 +16,3 @@ const user = Player('user');
 
 const userModal = myManualModal(user);
 userModal.init();
-// modal.displayModal();
-// modal.allowClickToPlace();
-// modal.mouseOverEffect();
-// modal.renderModalBoard(user.getboard);

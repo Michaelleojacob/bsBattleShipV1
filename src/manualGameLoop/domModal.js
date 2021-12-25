@@ -1,8 +1,9 @@
 import dom from '../domCreator/domCreator';
 import cached from '../cacheDom/cacheDom';
 import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
+import renderBoard from '../domComponents/makeboards';
 
-export default function createModalDom() {
+function createModalDom() {
   const { container, nonModalContent } = cached;
   const manualModal = dom({ attributes: [{ id: 'manualModal' }], classes: ['modal'] });
   const mModalContent = dom({ classes: ['mModalContent'] });
@@ -35,6 +36,8 @@ export default function createModalDom() {
     shipName,
   });
 
+  const renderGrid = (playerObj) => renderBoard(playerObj, modalGrid);
+
   const renderModal = () => {
     removeAllChildNodes(nonModalContent);
     return appendModal();
@@ -46,5 +49,9 @@ export default function createModalDom() {
     getModalDomPieces,
     renderModal,
     removeModal,
+    renderGrid,
   };
 }
+
+const modalDom = createModalDom();
+export default modalDom;
