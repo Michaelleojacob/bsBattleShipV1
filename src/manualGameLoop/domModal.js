@@ -14,13 +14,19 @@ function createModalDom() {
   });
   const dynamicRotationText = dom({ tag: 'span', attributes: [{ id: 'dynamicRotationText' }] });
   const modalGrid = dom({ attributes: [{ id: 'modalGrid' }], classes: ['grid'] });
-  const shipName = dom({ text: 'placeholder ship name', attributes: [{ id: 'shipName' }] });
+  const staticShipName = dom({ text: `placing: `, attributes: [{ id: 'staticShipName' }] });
+  const shipName = dom({
+    tag: 'span',
+    text: 'placeholder ship name',
+    attributes: [{ id: 'shipName' }],
+  });
 
   function appendModal() {
     mModalContent.appendChild(rotateBtn);
     staticRotationText.appendChild(dynamicRotationText);
     mModalContent.appendChild(staticRotationText);
-    mModalContent.appendChild(shipName);
+    mModalContent.appendChild(staticShipName);
+    staticShipName.appendChild(shipName);
     mModalContent.appendChild(modalGrid);
     manualModal.appendChild(mModalContent);
     container.appendChild(manualModal);
