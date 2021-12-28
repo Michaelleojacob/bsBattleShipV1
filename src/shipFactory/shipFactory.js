@@ -12,6 +12,13 @@ export default function Ship(name, size) {
 
   const isSunk = () => ship.every((item) => item === 'X');
 
+  let placed = false;
+
+  const setIsPlaced = (isPlaced) => {
+    placed = isPlaced;
+    return placed;
+  };
+
   return {
     get name() {
       return name;
@@ -29,8 +36,19 @@ export default function Ship(name, size) {
     get coords() {
       return [...ship.coordinates];
     },
+    get getPlaced() {
+      return placed;
+    },
+    /**
+     * @param {boolean} isPlaced
+     */
+    set setPlaced(isPlaced) {
+      this.placed = isPlaced;
+      return placed;
+    },
     hit,
     isSunk,
     setCoords,
+    setIsPlaced,
   };
 }

@@ -11,7 +11,8 @@ export default function Player(playerName) {
     patrol: Ship('patrol', 2),
   };
   const playerboard = gameboard(playerships);
-  const { receiveAttack, randomlyPlaceAllShips, placeShip } = playerboard;
+  const { receiveAttack, randomlyPlaceAllShips, placeShip, getCurrentShipForManualGameLoop } =
+    playerboard;
   return {
     get getboard() {
       return { ...playerboard.board };
@@ -29,5 +30,6 @@ export default function Player(playerName) {
     receiveAttack,
     randomlyPlaceAllShips,
     placeShip,
+    getCurrentShipForManualGameLoop,
   };
 }

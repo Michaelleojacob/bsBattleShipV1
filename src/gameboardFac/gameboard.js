@@ -16,7 +16,6 @@ export default function Gameboard(shipObj) {
     coordinates.forEach((coord) => {
       board[coord] = shipToMark.name;
     });
-    shipToMark.setCoords(coordinates);
   }
 
   function markBufferZone(bufferArray) {
@@ -32,6 +31,8 @@ export default function Gameboard(shipObj) {
       const bufferZone = getBufferZoneArray(coords);
       markBufferZone(bufferZone);
       markBoardWithShip(ship, coords);
+      ship.setCoords(coords);
+      ship.setIsPlaced(true);
       return true;
     }
     return false;
@@ -82,6 +83,15 @@ export default function Gameboard(shipObj) {
     return 'something went horribly wrong';
   }
 
+  const getCurrentShipForManualGameLoop = () => {
+    if (shipObj.carrier.getPlaced === false) return shipObj.carrier;
+    if (shipObj.battleship.getPlaced === false) return shipObj.battleship;
+    if (shipObj.destroyer.getPlaced === false) return shipObj.destroyer;
+    if (shipObj.submarine.getPlaced === false) return shipObj.submarine;
+    if (shipObj.patrol.getPlaced === false) return shipObj.patrol;
+    return 'all ships are placed';
+  };
+
   return {
     get board() {
       return { ...board };
@@ -96,5 +106,6 @@ export default function Gameboard(shipObj) {
     receiveAttack,
     randomlyPlaceShip,
     randomlyPlaceAllShips,
+    getCurrentShipForManualGameLoop,
   };
 }
