@@ -32,16 +32,6 @@ function createModalDom() {
     container.appendChild(manualModal);
   }
 
-  const getModalDomPieces = () => ({
-    manualModal,
-    mModalContent,
-    rotateBtn,
-    staticRotationText,
-    dynamicRotationText,
-    modalGrid,
-    shipName,
-  });
-
   const renderGrid = (playerObj) => renderBoard(playerObj, modalGrid);
 
   const renderModal = () => {
@@ -51,11 +41,22 @@ function createModalDom() {
 
   const removeModal = () => removeAllChildNodes(manualModal);
 
+  function updateDyanmicRotateText(msg) {
+    dynamicRotationText.textContent = msg;
+  }
+
+  function updateShipName({ name }) {
+    shipName.textContent = name;
+  }
+
   return {
-    getModalDomPieces,
+    rotateBtn,
+    dynamicRotationText,
     renderModal,
     removeModal,
     renderGrid,
+    updateShipName,
+    updateDyanmicRotateText,
   };
 }
 
