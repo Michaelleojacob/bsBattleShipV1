@@ -52,6 +52,7 @@ function createModalDom() {
   return {
     rotateBtn,
     dynamicRotationText,
+    modalGrid,
     renderModal,
     removeModal,
     renderGrid,

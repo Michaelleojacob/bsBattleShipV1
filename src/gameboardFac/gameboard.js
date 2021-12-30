@@ -89,7 +89,7 @@ export default function Gameboard(shipObj) {
     if (shipObj.destroyer.getPlaced === false) return shipObj.destroyer;
     if (shipObj.submarine.getPlaced === false) return shipObj.submarine;
     if (shipObj.patrol.getPlaced === false) return shipObj.patrol;
-    return 'all ships are placed';
+    return true;
   };
 
   return {

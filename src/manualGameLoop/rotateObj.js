@@ -45,9 +45,9 @@ export default function enableRotateFunctionality({ rotateBtn, updateDyanmicRota
 
   return {
     get getVert() {
-      const trueOrFalse = checkVert();
-      return trueOrFalse;
+      return checkVert();
     },
+    checkVert,
     init: addEventToRotateBtn,
     end: removeEventFromRotateBtn,
   };

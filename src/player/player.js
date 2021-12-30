@@ -13,6 +13,7 @@ export default function Player(playerName) {
   const playerboard = gameboard(playerships);
   const { receiveAttack, randomlyPlaceAllShips, placeShip, getCurrentShipForManualGameLoop } =
     playerboard;
+  const checkboard = () => ({ ...playerboard.board });
   return {
     get getboard() {
       return { ...playerboard.board };
@@ -31,5 +32,6 @@ export default function Player(playerName) {
     randomlyPlaceAllShips,
     placeShip,
     getCurrentShipForManualGameLoop,
+    checkboard,
   };
 }
