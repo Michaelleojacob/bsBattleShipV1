@@ -1,27 +1,36 @@
 import modalDom from './domModal';
 import enableRotateFunctionality from './rotateObj';
 import manualModalEvents from './events';
+import ps from '../pubsub/pubsub';
 
 export default function myManualModal(playerObject) {
   const rotateObject = enableRotateFunctionality(modalDom);
   rotateObject.init();
 
-  const updateRenderedGrid = () => modalDom.renderGrid(playerObject);
+  const updateGrid = () => modalDom.renderGrid(playerObject);
+  ps.subscribe('updateGrid', updateGrid);
 
-  manualModalEvents({
-    domElement: modalDom.modalGrid,
-    updateRenderedGrid,
-    checkRotate: rotateObject.checkVert,
-    getCurrShip: playerObject.getCurrentShipForManualGameLoop,
-    placeShip: playerObject.placeShip,
-    playerBoard: playerObject.getboard,
-  });
+  function enableEvents() {
+    const currentShip = playerObject.getCurrentShipForManualGameLoop();
+    modalDom.updateShipName(currentShip);
+
+    if (currentShip === true) {
+      // end modal start game!
+    }
+
+    manualModalEvents({
+      checkRotate: rotateObject.checkVert,
+      currentShip,
+      placeShip: playerObject.placeShip,
+      playerBoard: playerObject.getboard,
+    });
+  }
+  ps.subscribe('shipWasPlaced', enableEvents);
 
   function init() {
-    const currShip = playerObject.getCurrentShipForManualGameLoop();
     modalDom.renderModal();
-    updateRenderedGrid();
-    modalDom.updateShipName(currShip);
+    ps.publish('updateGrid');
+    ps.publish('shipWasPlaced');
   }
 
   return {

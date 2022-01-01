@@ -1,16 +1,10 @@
+import ps from '../pubsub/pubsub';
 import arrayBasedOnSize from './getArrayBasedOnSize';
+import modalDom from './domModal';
 
-// export default function manualModalEvents(domObj, playerObj, rotateObj){}
-export default function manualModalEvents({
-  domElement,
-  updateRenderedGrid,
-  checkRotate,
-  getCurrShip,
-  placeShip,
-  playerBoard,
-}) {
-  const currShip = getCurrShip();
-  const { size } = currShip;
+const { modalGrid } = modalDom;
+export default function manualModalEvents({ checkRotate, currentShip, placeShip, playerBoard }) {
+  const { size } = currentShip;
 
   const getCorrectArray = (targ) => {
     const arr = arrayBasedOnSize(targ, size);
@@ -33,10 +27,12 @@ export default function manualModalEvents({
     if (e.target.classList.contains('cell')) {
       const target = e.target.classList[0];
       const arr = getCorrectArray(target);
-      console.log(arr);
-      const foo = placeShip(currShip, arr);
-      console.log(foo);
-      if (foo) updateRenderedGrid();
+      const foo = placeShip(currentShip, arr);
+      if (foo) {
+        ps.publish('updateGrid');
+        ps.publish('removeEvents');
+        ps.publish('shipWasPlaced');
+      }
     }
   }
 
@@ -50,12 +46,12 @@ export default function manualModalEvents({
       if (arr.length !== size) addClass = 'danger';
       arr.forEach((item) => {
         if (playerBoard[item] === 'empty') {
-          domElement.querySelector(`.${item}`).classList.add('highlighted');
+          modalGrid.querySelector(`.${item}`).classList.add('highlighted');
         }
         if (playerBoard[item] !== 'empty') {
-          domElement.querySelector(`.${item}`).classList.add('danger');
+          modalGrid.querySelector(`.${item}`).classList.add('danger');
         }
-        domElement.querySelector(`.${item}`).classList.add(addClass);
+        modalGrid.querySelector(`.${item}`).classList.add(addClass);
       });
     }
     return false;
@@ -63,7 +59,7 @@ export default function manualModalEvents({
 
   function handleMouseout(e) {
     if (e.target.classList.contains('highlighted') || e.target.classList.contains('danger')) {
-      const foo = Array.from(domElement.childNodes);
+      const foo = Array.from(modalGrid.childNodes);
       foo.forEach((item) => {
         item.classList.remove('highlighted', 'danger');
       });
@@ -71,15 +67,16 @@ export default function manualModalEvents({
   }
 
   function addEvents() {
-    domElement.addEventListener('click', handleClick);
-    domElement.addEventListener('mouseover', handleMouseover);
-    domElement.addEventListener('mouseout', handleMouseout);
+    modalGrid.addEventListener('click', handleClick);
+    modalGrid.addEventListener('mouseover', handleMouseover);
+    modalGrid.addEventListener('mouseout', handleMouseout);
   }
-  // function removeEvents() {
-  //   domElement.removeEventListener('click', handleClick);
-  //   domElement.removeEventListener('mouseover', handleMouseover);
-  //   domElement.removeEventListener('mouseout', handleMouseout);
-  // }
+  function removeEvents() {
+    modalGrid.removeEventListener('click', handleClick);
+    modalGrid.removeEventListener('mouseover', handleMouseover);
+    modalGrid.removeEventListener('mouseout', handleMouseout);
+  }
+  ps.subscribe('removeEvents', removeEvents);
 
   addEvents();
 }

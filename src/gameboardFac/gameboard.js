@@ -83,13 +83,15 @@ export default function Gameboard(shipObj) {
     return 'something went horribly wrong';
   }
 
+  const areAllShipsPlaced = () => Object.values(shipObj).every((ship) => ship.getPlaced === true);
+
   const getCurrentShipForManualGameLoop = () => {
     if (shipObj.carrier.getPlaced === false) return shipObj.carrier;
     if (shipObj.battleship.getPlaced === false) return shipObj.battleship;
     if (shipObj.destroyer.getPlaced === false) return shipObj.destroyer;
     if (shipObj.submarine.getPlaced === false) return shipObj.submarine;
     if (shipObj.patrol.getPlaced === false) return shipObj.patrol;
-    return true;
+    return areAllShipsPlaced();
   };
 
   return {
