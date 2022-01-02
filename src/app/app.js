@@ -1,21 +1,16 @@
-import myHeader from '../header/headercomponent';
-import myFooter from '../footer/footer';
 import Player from '../player/player';
 import renderBoard from '../domComponents/makeboards';
 import cached from '../cacheDom/cacheDom';
-// import gameStartModal from '../startGameModal/startGameModal';
+import ps from '../pubsub/pubsub';
 
 export default function app() {
-  const user = Player();
-  const bot = Player();
+  const user = Player('user');
+  const bot = Player('bot');
 
   const { playerGridArea, botGridArea } = cached;
-  renderBoard(user.getboard, playerGridArea, true);
-  renderBoard(bot.getboard, botGridArea, false);
+  const renderUserBoard = () => renderBoard(user.getboard, user.getName, playerGridArea);
+  ps.subscribe('renderUserBoard', renderUserBoard);
 
-  myHeader.init();
-  myFooter.init();
-
-  // const modal = gameStartModal();
-  // modal.displayModal();
+  const renderBotBoard = () => renderBoard(bot.getboard, bot.getName, botGridArea);
+  ps.subscribe('renderBotBoard', renderBotBoard);
 }

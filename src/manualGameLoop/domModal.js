@@ -32,7 +32,7 @@ function createModalDom() {
     container.appendChild(manualModal);
   }
 
-  const renderGrid = (playerObj) => renderBoard(playerObj, modalGrid);
+  const renderGrid = (playerObj) => renderBoard(playerObj.getboard, playerObj.getName, modalGrid);
 
   const renderModal = () => {
     removeAllChildNodes(nonModalContent);

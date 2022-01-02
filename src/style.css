@@ -1,3 +1,12 @@
+/* @import url('./styles/reset.css'); */
+@import url('./styles/container.css');
+@import url('./socials/socials.css');
 @import url('./styles/gameboards.css');
 @import url('./startGameModal//startGameModal.css');
 @import url('./manualGameLoop//manualGameLoop.css');
+@import url('./header/headerstyle.css');
+
+.fa-regular {
+  color: black;
+  font-size: 10rem;
+}

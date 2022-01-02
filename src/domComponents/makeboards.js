@@ -1,7 +1,7 @@
 import dom from '../domCreator/domCreator';
 import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
 
-export default function renderBoard({ getboard, getName }, parent) {
+export default function renderBoard(getboard, getName, parent) {
   removeAllChildNodes(parent);
   const entries = Object.entries(getboard);
   entries.forEach(([key, value]) => {
