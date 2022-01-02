@@ -25,3 +25,7 @@ function renderToolTip() {
 
 const tooltipText = renderToolTip();
 export default tooltipText;
+
+// how to use ps to update:
+// ps.publish('updateTooltip', { newText: 'thing1', color: 'red' });
+// ps.publish('updateTooltip', { newText: 'hello', color: 'pink' });
