@@ -4,8 +4,6 @@ import dom from '../domCreator/domCreator';
 function renderSocialComponents() {
   const { socials } = cached;
 
-  // const by = dom({ text: 'by', attributes: [{ id: 'by' }] });
-
   const emailwrap = dom({ attributes: [{ id: 'emailwrap' }] });
 
   const ccIcon = dom({
@@ -61,7 +59,6 @@ function renderSocialComponents() {
   });
 
   function init() {
-    // socials.appendChild(by);
     emailwrap.appendChild(ccIcon);
     emailwrap.appendChild(email);
     socials.appendChild(emailwrap);
