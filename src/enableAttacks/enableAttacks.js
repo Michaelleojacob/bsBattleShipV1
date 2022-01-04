@@ -1,5 +1,6 @@
 import cached from '../cacheDom/cacheDom';
 import ps from '../pubsub/pubsub';
+import endGameLoop from '../endGame/endGame';
 
 function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, userLegalMoves }) {
   let updatePlayerGrid;
@@ -38,6 +39,7 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
     if (valueFromBotAttack === 'all ships are sunk!') {
       console.log('the bot is victorious');
       clearEventListener(botGridArea);
+      endGameLoop();
     }
   }
 
@@ -49,6 +51,7 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
       if (valueFromUserAttack === 'all ships are sunk!') {
         console.log('You are victorious');
         clearEventListener(botGridArea);
+        endGameLoop();
       }
       sendUserAttack();
     }
