@@ -8,4 +8,7 @@ export default function app() {
   renderSocials.init();
   tooltipText.init();
   startComponent.init();
+  //* for testing
+  document.querySelector('#manual').click();
+  //* for testing
 }

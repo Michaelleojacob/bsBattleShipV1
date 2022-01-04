@@ -3,7 +3,10 @@ import dom from '../domCreator/domCreator';
 import Player from '../player/player';
 import renderPlayerGrid from '../domComponents/renderPlayerGrid';
 import makeRotateComponent from '../domComponents/rotateComponent';
+import startGame from './startGame';
+import placeShipsSetup from './Events';
 import ps from '../pubsub/pubsub';
+import renderShipName from './shipNameTxt';
 
 function manuallyPlaceShips() {
   ps.publish('wipeGameArea');
@@ -13,17 +16,35 @@ function manuallyPlaceShips() {
   const rotate = makeRotateComponent();
   gameArea.appendChild(rotate.rotateWrap);
 
+  const shipName = renderShipName();
+  gameArea.appendChild(shipName.shipNameWrap);
+
   const playerGridArea = dom({ attributes: [{ id: 'playerGridArea' }] });
   gameArea.appendChild(playerGridArea);
 
   const user = Player();
-  // const bot = Player();
+  //* for testing:
+  user.randomlyPlaceAllShips();
+  //* for testing
 
-  const updatePlayerGrid = () => renderPlayerGrid(user.getboard, playerGridArea);
-  ps.subscribe('updatePlayerGrid', updatePlayerGrid);
-  ps.publish('updatePlayerGrid');
+  const updatePlayerGridPlacement = () => renderPlayerGrid(user.getboard, playerGridArea);
+  ps.subscribe('updatePlayerGridPlacement', updatePlayerGridPlacement);
+  ps.publish('updatePlayerGridPlacement');
 
   ps.publish('updateTooltip', { newText: 'click to place your ships', color: '' });
+
+  function enableEvents() {
+    const currentShip = user.getCurrentShipForManualGameLoop();
+    ps.publish('updateShipName', currentShip.name);
+
+    if (currentShip === true) {
+      startGame(user);
+    }
+
+    placeShipsSetup(playerGridArea, rotate.getVert, currentShip, user);
+  }
+  ps.subscribe('shipPlaced', enableEvents);
+  enableEvents();
 }
 
 export default manuallyPlaceShips;

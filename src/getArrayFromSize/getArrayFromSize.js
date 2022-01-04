@@ -1,4 +1,4 @@
-export default function arrayBasedOnSize(cell, length) {
+export default function getArrayFromSize(cell, length) {
   const shipSize = parseInt(length, 10);
   const [startLetter, stringNum] = cell.split('');
   const parsedStartingNum = parseInt(stringNum, 10);
