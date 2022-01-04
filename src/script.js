@@ -7,13 +7,15 @@ import '../node_modules/@fortawesome/fontawesome-free/js/all';
 import app from './app/app';
 import ps from './pubsub/pubsub';
 
-const game = app();
-game.nonGameAreaContent();
-game.playBattleship();
+function startBattleShip() {
+  const game = app();
+  game.nonGameAreaContent();
+  game.playBattleship();
+}
+ps.subscribe('startBattleShip', startBattleShip);
+ps.publish('startBattleShip');
 
 //* for testing
 // document.querySelector('#manual').click();
-document.querySelector('#random').click();
+// document.querySelector('#random').click();
 //* for testing
-
-ps.subscribe('runItBack', game.playBattleship);

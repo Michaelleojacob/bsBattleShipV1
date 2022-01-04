@@ -2,6 +2,8 @@ import ps from '../pubsub/pubsub';
 import getArrayFromSize from '../getArrayFromSize/getArrayFromSize';
 
 export default function placeShipsSetup(domEl, rotateState, currentShip, userObj) {
+  console.log(`from events:`);
+  console.log(userObj.getboard);
   const { size } = currentShip;
   const getCorrectArray = (targ) => {
     const arr = getArrayFromSize(targ, size);

@@ -1,9 +1,12 @@
 import cached from '../cacheDom/cacheDom';
 import dom from '../domCreator/domCreator';
 import ps from '../pubsub/pubsub';
+import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
 
-function renderToolTip() {
-  const { tooltip } = cached;
+export default function renderToolTip() {
+  const { tooltipAndGameAreaWrap } = cached;
+
+  const tooltip = dom({ attributes: [{ id: 'tooltip' }] });
 
   const tooltipText = dom({ attributes: [{ id: 'tooltipText' }] });
 
@@ -20,15 +23,14 @@ function renderToolTip() {
   ps.subscribe('clearTooltip', clearTooltip);
 
   function init() {
+    removeAllChildNodes(tooltip);
     tooltip.appendChild(tooltipText);
+    tooltipAndGameAreaWrap.appendChild(tooltip);
   }
   return {
     init,
   };
 }
-
-const tooltipText = renderToolTip();
-export default tooltipText;
 
 // how to use ps to update:
 // ps.publish('updateTooltip', { newText: 'thing1', color: 'red' });

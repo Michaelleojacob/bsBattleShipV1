@@ -1,23 +1,22 @@
-import cached from '../cacheDom/cacheDom';
 import dom from '../domCreator/domCreator';
+import cached from '../cacheDom/cacheDom';
 import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
 
-function headerComponent() {
-  const { header } = cached;
+export default function headerComponent() {
+  const { headerAndSocialsWrap } = cached;
 
+  const header = dom({ attributes: [{ id: 'header' }] });
   const title = dom({ text: 'battleship', attributes: [{ id: 'title' }] });
-  cached.title = title;
+
+  header.appendChild(title);
 
   function init() {
     removeAllChildNodes(header);
-    header.appendChild(title);
+    headerAndSocialsWrap.appendChild(header);
+    headerAndSocialsWrap.appendChild(title);
   }
 
   return {
     init,
   };
 }
-
-const myHeader = headerComponent();
-
-export default myHeader;

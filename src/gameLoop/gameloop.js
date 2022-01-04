@@ -5,27 +5,27 @@ import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
 import manuallyPlaceShips from '../manuallyPlaceShips/manuallyPlaceShips';
 import randomLoop from '../randomGameLoop/randomLoop';
 
-function startGameLoop() {
-  const { gameArea } = cached;
+export default function startGameLoop() {
+  const { tooltipAndGameAreaWrap } = cached;
 
-  const button1 = dom({
+  const gameArea = dom({ id: 'gameArea' });
+
+  const manualloopbtn = dom({
     tag: 'button',
     text: 'I will place my ship manually',
     attributes: [{ id: 'manual' }],
   });
-  const button2 = dom({
+  const randomloopbtn = dom({
     tag: 'button',
     text: 'place ships for me',
     attributes: [{ id: 'random' }],
   });
 
-  // run manually place ships
-  button1.addEventListener('click', () => {
+  manualloopbtn.addEventListener('click', () => {
     manuallyPlaceShips();
   });
 
-  // run randomly place ships
-  button2.addEventListener('click', () => {
+  randomloopbtn.addEventListener('click', () => {
     randomLoop();
   });
 
@@ -36,9 +36,12 @@ function startGameLoop() {
   ps.subscribe('wipeGameArea', wipeGameArea);
 
   function init() {
+    removeAllChildNodes(gameArea);
+    cached.gameArea = gameArea;
     ps.publish('wipeGameArea');
-    gameArea.appendChild(button1);
-    gameArea.appendChild(button2);
+    gameArea.appendChild(manualloopbtn);
+    gameArea.appendChild(randomloopbtn);
+    tooltipAndGameAreaWrap.appendChild(gameArea);
     ps.publish('updateTooltip', { newText: 'please select an option', color: 'black' });
   }
 
@@ -46,6 +49,3 @@ function startGameLoop() {
     init,
   };
 }
-
-const startComponent = startGameLoop();
-export default startComponent;

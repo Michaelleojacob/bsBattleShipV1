@@ -33,7 +33,9 @@ function randomLoop() {
     userUnderAttack: user.receiveAttack,
   };
 
+  //! delete
   bot.sinkAllShips();
+  //! delete
 
   enableAttacking(objPassedToEnableAttacking);
 }

@@ -43,7 +43,8 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
         newText: 'You lost to a bot, better luck next time!',
         color: '',
       });
-      endGameLoop(false);
+      const renderEndModal = endGameLoop(false);
+      renderEndModal.init();
     }
   }
 
@@ -56,7 +57,8 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
         console.log('You are victorious');
         clearEventListener(botGridArea);
         ps.publish('updateTooltip', { newText: 'You are victorious!', color: '' });
-        endGameLoop(true);
+        const renderEndModal = endGameLoop(true);
+        renderEndModal.init();
       }
       sendUserAttack();
     }

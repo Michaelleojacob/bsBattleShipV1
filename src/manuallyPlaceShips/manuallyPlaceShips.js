@@ -23,6 +23,10 @@ function manuallyPlaceShips() {
   gameArea.appendChild(playerGridArea);
 
   const user = Player();
+
+  console.log(`from manuallyPlaceShips:`);
+  console.log(user.getboard);
+
   //* for testing:
   // user.randomlyPlaceAllShips();
   //* for testing
@@ -38,7 +42,8 @@ function manuallyPlaceShips() {
     ps.publish('updateShipName', currentShip.name);
 
     if (currentShip === true) {
-      startGame(user);
+      const newgame = startGame(user);
+      newgame.init();
     }
 
     placeShipsSetup(playerGridArea, rotate.getVert, currentShip, user);

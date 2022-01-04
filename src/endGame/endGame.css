@@ -1,22 +1,50 @@
 /* The Modal (background) */
-#myModal {
+#modal {
   display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
+  position: absolute; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  height: 100%;
 }
 
 /* Modal Content/Box */
-#modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+#modalContent {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefefebb;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  gap: 2rem;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+#endTextWrap {
+  font-size: 2em;
+  display: flex;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+#undobtn {
+  display: flex;
+}
+
+.fa-undo {
+  font-size: 10em;
+  color: green;
+  pointer-events: none;
 }

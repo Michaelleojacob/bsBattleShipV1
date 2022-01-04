@@ -1,8 +1,11 @@
 import cached from '../cacheDom/cacheDom';
 import dom from '../domCreator/domCreator';
+import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
 
-function renderSocialComponents() {
-  const { socials } = cached;
+export default function renderSocialComponents() {
+  const { headerAndSocialsWrap } = cached;
+
+  const socials = dom({ attributes: [{ id: 'socials' }] });
 
   const emailwrap = dom({ attributes: [{ id: 'emailwrap' }] });
 
@@ -59,18 +62,17 @@ function renderSocialComponents() {
   });
 
   function init() {
+    removeAllChildNodes(socials);
     emailwrap.appendChild(ccIcon);
     emailwrap.appendChild(email);
-    socials.appendChild(emailwrap);
     links.appendChild(github);
     links.appendChild(linkedin);
     links.appendChild(repo);
+    socials.appendChild(emailwrap);
     socials.appendChild(links);
+    headerAndSocialsWrap.appendChild(socials);
   }
   return {
     init,
   };
 }
-
-const renderSocials = renderSocialComponents();
-export default renderSocials;
