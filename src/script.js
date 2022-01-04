@@ -6,4 +6,5 @@ import '../node_modules/@fortawesome/fontawesome-free/js/brands';
 import '../node_modules/@fortawesome/fontawesome-free/js/all';
 import app from './app/app';
 
-app();
+const game = app();
+game.init();

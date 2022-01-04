@@ -24,12 +24,12 @@ function manuallyPlaceShips() {
 
   const user = Player();
   //* for testing:
-  user.randomlyPlaceAllShips();
+  // user.randomlyPlaceAllShips();
   //* for testing
 
-  const updatePlayerGridPlacement = () => renderPlayerGrid(user.getboard, playerGridArea);
-  ps.subscribe('updatePlayerGridPlacement', updatePlayerGridPlacement);
-  ps.publish('updatePlayerGridPlacement');
+  const updatePlayerGridManualPlacement = () => renderPlayerGrid(user.getboard, playerGridArea);
+  ps.subscribe('updatePlayerGridManualPlacement', updatePlayerGridManualPlacement);
+  ps.publish('updatePlayerGridManualPlacement');
 
   ps.publish('updateTooltip', { newText: 'click to place your ships', color: '' });
 

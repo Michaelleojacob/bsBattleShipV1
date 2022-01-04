@@ -10,8 +10,13 @@ export default function Player() {
     patrol: Ship('patrol', 2),
   };
   const playerboard = gameboard(playerships);
-  const { receiveAttack, randomlyPlaceAllShips, placeShip, getCurrentShipForManualGameLoop } =
-    playerboard;
+  const {
+    receiveAttack,
+    randomlyPlaceAllShips,
+    placeShip,
+    getCurrentShipForManualGameLoop,
+    fetchLegalMoves,
+  } = playerboard;
   const checkboard = () => ({ ...playerboard.board });
   return {
     get getboard() {
@@ -23,10 +28,11 @@ export default function Player() {
     get getShips() {
       return { ...playerships };
     },
-    receiveAttack,
-    randomlyPlaceAllShips,
     placeShip,
-    getCurrentShipForManualGameLoop,
     checkboard,
+    receiveAttack,
+    fetchLegalMoves,
+    randomlyPlaceAllShips,
+    getCurrentShipForManualGameLoop,
   };
 }

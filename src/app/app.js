@@ -4,11 +4,14 @@ import tooltipText from '../tooltip/tooltip';
 import startComponent from '../gameLoop/gameloop';
 
 export default function app() {
-  myHeader.init();
-  renderSocials.init();
-  tooltipText.init();
-  startComponent.init();
+  function init() {
+    myHeader.init();
+    renderSocials.init();
+    tooltipText.init();
+    startComponent.init();
+  }
   //* for testing
-  document.querySelector('#manual').click();
+  // document.querySelector('#manual').click();
   //* for testing
+  return { init };
 }

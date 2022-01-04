@@ -8,6 +8,8 @@ export default function Gameboard(shipObj) {
   const legalMoves = { ...boardObj };
   const recordAllShots = [];
 
+  const fetchLegalMoves = () => ({ ...legalMoves });
+
   function markboardHitOrMiss(hitOrMiss, coordinate) {
     board[coordinate] = hitOrMiss;
   }
@@ -106,6 +108,7 @@ export default function Gameboard(shipObj) {
     },
     placeShip,
     receiveAttack,
+    fetchLegalMoves,
     randomlyPlaceShip,
     randomlyPlaceAllShips,
     getCurrentShipForManualGameLoop,

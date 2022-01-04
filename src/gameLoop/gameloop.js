@@ -3,6 +3,7 @@ import dom from '../domCreator/domCreator';
 import ps from '../pubsub/pubsub';
 import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
 import manuallyPlaceShips from '../manuallyPlaceShips/manuallyPlaceShips';
+import randomLoop from '../randomGameLoop/randomLoop';
 
 function startGameLoop() {
   const { gameArea } = cached;
@@ -25,7 +26,7 @@ function startGameLoop() {
 
   // run randomly place ships
   button2.addEventListener('click', () => {
-    console.log('btn2 was clicked');
+    randomLoop();
   });
 
   function wipeGameArea() {

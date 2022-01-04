@@ -25,7 +25,7 @@ export default function placeShipsSetup(domEl, rotateState, currentShip, userObj
       const arr = getCorrectArray(target);
       const foo = userObj.placeShip(currentShip, arr);
       if (foo) {
-        ps.publish('updatePlayerGridPlacement');
+        ps.publish('updatePlayerGridManualPlacement');
         ps.publish('removeEvents');
         ps.publish('shipPlaced');
       }
