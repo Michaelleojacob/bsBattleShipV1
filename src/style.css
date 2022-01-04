@@ -3,7 +3,7 @@
 @import url('./socials/socials.css');
 @import url('./tooltip/tooltip.css');
 @import url('./styles/gameboards.css');
-/* @import url('./startGameModal/startGameModal.css'); */
-/* @import url('./manualGameLoop/manualGameLoop.css'); */
+@import url('./manuallyPlaceShips/manuallyPlaceShips.css');
 @import url('./header/headerstyle.css');
 @import url('./manuallyPlaceShips/manuallyPlaceShips.css');
+@import url('./endGame/endGame.css');

@@ -33,6 +33,8 @@ function randomLoop() {
     userUnderAttack: user.receiveAttack,
   };
 
+  bot.sinkAllShips();
+
   enableAttacking(objPassedToEnableAttacking);
 }
 

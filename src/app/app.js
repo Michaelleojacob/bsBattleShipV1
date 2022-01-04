@@ -4,14 +4,17 @@ import tooltipText from '../tooltip/tooltip';
 import startComponent from '../gameLoop/gameloop';
 
 export default function app() {
-  function init() {
+  function nonGameAreaContent() {
     myHeader.init();
     renderSocials.init();
+  }
+  function playBattleship() {
     tooltipText.init();
     startComponent.init();
   }
-  //* for testing
-  // document.querySelector('#manual').click();
-  //* for testing
-  return { init };
+
+  return {
+    nonGameAreaContent,
+    playBattleship,
+  };
 }

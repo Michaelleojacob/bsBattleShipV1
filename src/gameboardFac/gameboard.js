@@ -64,6 +64,14 @@ export default function Gameboard(shipObj) {
     recordAllShots.push(id);
   }
 
+  function sinkAllShips() {
+    Object.values(shipObj).forEach((ship) => {
+      for (let i = 0; i < ship.size; i += 1) {
+        ship.hit(i);
+      }
+    });
+  }
+
   function receiveAttack(cell) {
     if (recordAllShots.includes(cell)) {
       return 'error illegal shot';
@@ -107,6 +115,7 @@ export default function Gameboard(shipObj) {
       return [...recordAllShots];
     },
     placeShip,
+    sinkAllShips,
     receiveAttack,
     fetchLegalMoves,
     randomlyPlaceShip,

@@ -39,7 +39,11 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
     if (valueFromBotAttack === 'all ships are sunk!') {
       console.log('the bot is victorious');
       clearEventListener(botGridArea);
-      endGameLoop();
+      ps.publish('updateTooltip', {
+        newText: 'You lost to a bot, better luck next time!',
+        color: '',
+      });
+      endGameLoop(false);
     }
   }
 
@@ -51,7 +55,8 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
       if (valueFromUserAttack === 'all ships are sunk!') {
         console.log('You are victorious');
         clearEventListener(botGridArea);
-        endGameLoop();
+        ps.publish('updateTooltip', { newText: 'You are victorious!', color: '' });
+        endGameLoop(true);
       }
       sendUserAttack();
     }

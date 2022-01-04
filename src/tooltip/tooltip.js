@@ -15,6 +15,10 @@ function renderToolTip() {
 
   ps.subscribe('updateTooltip', changeText);
 
+  const clearTooltip = () => changeText('', '');
+
+  ps.subscribe('clearTooltip', clearTooltip);
+
   function init() {
     tooltip.appendChild(tooltipText);
   }

@@ -41,6 +41,7 @@ function startGameLoop() {
     gameArea.appendChild(button2);
     ps.publish('updateTooltip', { newText: 'please select an option', color: 'black' });
   }
+
   return {
     init,
   };

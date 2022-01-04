@@ -11,11 +11,12 @@ export default function Player() {
   };
   const playerboard = gameboard(playerships);
   const {
-    receiveAttack,
-    randomlyPlaceAllShips,
     placeShip,
-    getCurrentShipForManualGameLoop,
+    sinkAllShips,
+    receiveAttack,
     fetchLegalMoves,
+    randomlyPlaceAllShips,
+    getCurrentShipForManualGameLoop,
   } = playerboard;
   const checkboard = () => ({ ...playerboard.board });
   return {
@@ -30,6 +31,7 @@ export default function Player() {
     },
     placeShip,
     checkboard,
+    sinkAllShips,
     receiveAttack,
     fetchLegalMoves,
     randomlyPlaceAllShips,
