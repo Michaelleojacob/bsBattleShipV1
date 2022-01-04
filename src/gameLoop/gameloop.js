@@ -2,6 +2,7 @@ import cached from '../cacheDom/cacheDom';
 import dom from '../domCreator/domCreator';
 import ps from '../pubsub/pubsub';
 import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
+import manuallyPlaceShips from '../manuallyPlaceShips/manuallyPlaceShips';
 
 function startGameLoop() {
   const { gameArea } = cached;
@@ -17,16 +18,24 @@ function startGameLoop() {
     attributes: [{ id: 'random' }],
   });
 
+  // run manually place ships
   button1.addEventListener('click', () => {
-    console.log('btn1 was clicked');
+    manuallyPlaceShips();
   });
 
+  // run randomly place ships
   button2.addEventListener('click', () => {
     console.log('btn2 was clicked');
   });
 
-  function init() {
+  function wipeGameArea() {
     removeAllChildNodes(gameArea);
+    ps.publish('updateTooltip', { newText: '', color: '' });
+  }
+  ps.subscribe('wipeGameArea', wipeGameArea);
+
+  function init() {
+    ps.publish('wipeGameArea');
     gameArea.appendChild(button1);
     gameArea.appendChild(button2);
     ps.publish('updateTooltip', { newText: 'please select an option', color: 'black' });

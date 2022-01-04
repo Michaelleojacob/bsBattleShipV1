@@ -1,7 +1,7 @@
 #playerGridArea,
 #botGridArea,
 .grid {
-  display: none;
+  display: grid;
   width: 300px;
   height: 300px;
   grid-template-columns: repeat(10, 1fr);

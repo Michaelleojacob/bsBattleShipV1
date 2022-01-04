@@ -12,3 +12,18 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
+#headerAndSocialsWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2em;
+}
+#tooltipAndGameAreaWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 0.5em;
+}
