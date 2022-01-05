@@ -24,9 +24,6 @@ function manuallyPlaceShips() {
 
   const user = Player();
 
-  console.log(`from manuallyPlaceShips:`);
-  console.log(user.getboard);
-
   //* for testing:
   // user.randomlyPlaceAllShips();
   //* for testing

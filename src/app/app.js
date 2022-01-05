@@ -6,11 +6,12 @@ import removeAllChildNodes from '../removeAllChildren/removeAllChildren';
 import cached from '../cacheDom/cacheDom';
 
 export default function app() {
-  // clear all ~ except modal
-  const { headerAndSocialsWrap, tooltipAndGameAreaWrap } = cached;
+  // clear all
+  const { headerAndSocialsWrap, tooltipAndGameAreaWrap, modal } = cached;
   removeAllChildNodes(headerAndSocialsWrap);
   removeAllChildNodes(tooltipAndGameAreaWrap);
-  // clear all ~ except modal
+  removeAllChildNodes(modal);
+  // clear all
 
   function nonGameAreaContent() {
     const header = headerComponent();

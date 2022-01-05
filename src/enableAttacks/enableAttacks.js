@@ -37,7 +37,6 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
     const valueFromBotAttack = userUnderAttack(target);
     updatePlayerGrid();
     if (valueFromBotAttack === 'all ships are sunk!') {
-      console.log('the bot is victorious');
       clearEventListener(botGridArea);
       ps.publish('updateTooltip', {
         newText: 'You lost to a bot, better luck next time!',

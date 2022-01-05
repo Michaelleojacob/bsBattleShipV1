@@ -15,11 +15,19 @@ function pubsub() {
 
   const unsub = (id) => delete subs[id];
 
+  function removeAllExceptOneSub(id) {
+    Object.keys(subs).forEach((sub) => {
+      if (sub !== id) {
+        delete subs[sub];
+      }
+    });
+  }
+
   const removeAllSubs = () => {
     Object.keys(subs).map((sub) => delete subs[sub]);
   };
 
-  return { logSubs, subscribe, publish, unsub, removeAllSubs };
+  return { logSubs, subscribe, publish, unsub, removeAllSubs, removeAllExceptOneSub };
 }
 
 const ps = pubsub();

@@ -7,18 +7,12 @@ import renderBotGrid from '../domComponents/renderBotGrid';
 import enableAttacking from '../enableAttacks/enableAttacks';
 
 export default function startGame(userObj) {
-  console.log(`from startGame:`);
-  console.log(userObj.getboard);
   ps.publish('wipeGameArea');
 
   const { gameArea } = cached;
 
   const bot = Player();
   bot.randomlyPlaceAllShips();
-
-  //! delete
-  bot.sinkAllShips();
-  //! delete
 
   const grids = renderGameArea();
   gameArea.appendChild(grids.playerGridArea);

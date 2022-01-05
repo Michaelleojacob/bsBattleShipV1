@@ -36,9 +36,10 @@ export default function endGameLoop(didUserWin) {
 
   function undoWasClicked() {
     modal.setAttribute('style', 'display:none');
-    ps.publish('startBattleShip');
     headerAndSocialsWrap.setAttribute('style', 'opacity:1');
     tooltipAndGameAreaWrap.setAttribute('style', 'opacity:1');
+    ps.removeAllExceptOneSub('startBattleShip');
+    ps.publish('startBattleShip');
   }
 
   // ps sub these so I can undo this

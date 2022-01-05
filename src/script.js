@@ -14,8 +14,3 @@ function startBattleShip() {
 }
 ps.subscribe('startBattleShip', startBattleShip);
 ps.publish('startBattleShip');
-
-//* for testing
-// document.querySelector('#manual').click();
-// document.querySelector('#random').click();
-//* for testing
