@@ -4,3 +4,11 @@
   width: 90%;
   text-align: center;
 }
+
+.tthit {
+  color: rgb(223, 19, 19);
+}
+
+.ttmiss {
+  color: rgb(8, 63, 29);
+}

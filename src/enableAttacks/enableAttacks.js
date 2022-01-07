@@ -1,6 +1,7 @@
 import ps from '../pubsub/pubsub';
 import cached from '../cacheDom/cacheDom';
 import endGameLoop from '../endGame/endGame';
+import messages from './messageObject';
 
 function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, userLegalMoves }) {
   let updatePlayerGrid;
@@ -57,14 +58,15 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
   function sendAttack(e) {
     if (e.target.classList.contains('cell')) {
       const valueFromUserAttack = botUnderAttack(e.target.classList[0]);
+      const msgs = messages();
       switch (valueFromUserAttack) {
         case 'miss':
-          ps.publish('updateTooltip', { newText: `attack missed`, color: '' });
+          ps.publish('updateTooltip', { newText: msgs.msgForMiss(), color: 'ttmiss' });
           botToFireBack();
           updateBotGrid();
           break;
         case 'hit':
-          ps.publish('updateTooltip', { newText: `you landed a hit!`, color: '' });
+          ps.publish('updateTooltip', { newText: msgs.msgForHit(), color: 'tthit' });
           botToFireBack();
           updateBotGrid();
           break;
