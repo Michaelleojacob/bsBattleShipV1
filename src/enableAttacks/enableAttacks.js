@@ -1,5 +1,5 @@
-import cached from '../cacheDom/cacheDom';
 import ps from '../pubsub/pubsub';
+import cached from '../cacheDom/cacheDom';
 import endGameLoop from '../endGame/endGame';
 
 function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, userLegalMoves }) {
@@ -18,6 +18,8 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
       break;
   }
 
+  ps.publish('updateTooltip', { newText: 'click on the enemy board to fire an attack', color: '' });
+
   const { gameArea } = cached;
   const botGridArea = gameArea.querySelector('#botGridArea');
 
@@ -32,7 +34,12 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
     return clonedElement;
   };
 
-  function sendUserAttack() {
+  function declareWinner(winner) {
+    const renderEndModal = endGameLoop(winner);
+    renderEndModal.init();
+  }
+
+  function botToFireBack() {
     const target = getRandomLegalCell(userLegalMoves());
     const valueFromBotAttack = userUnderAttack(target);
     updatePlayerGrid();
@@ -42,24 +49,36 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
         newText: 'You lost to a bot, better luck next time!',
         color: '',
       });
-      const renderEndModal = endGameLoop(false);
-      renderEndModal.init();
+      declareWinner(false);
     }
   }
 
   function sendAttack(e) {
     if (e.target.classList.contains('cell')) {
       const valueFromUserAttack = botUnderAttack(e.target.classList[0]);
-      if (valueFromUserAttack === 'error illegal shot') return;
-      updateBotGrid();
-      if (valueFromUserAttack === 'all ships are sunk!') {
-        console.log('You are victorious');
-        clearEventListener(botGridArea);
-        ps.publish('updateTooltip', { newText: 'You are victorious!', color: '' });
-        const renderEndModal = endGameLoop(true);
-        renderEndModal.init();
+      switch (valueFromUserAttack) {
+        case 'miss':
+          ps.publish('updateTooltip', { newText: `attack missed`, color: '' });
+          botToFireBack();
+          updateBotGrid();
+          break;
+        case 'hit':
+          ps.publish('updateTooltip', { newText: `you landed a hit!`, color: '' });
+          botToFireBack();
+          updateBotGrid();
+          break;
+        case 'error illegal shot':
+          break;
+        case 'all ships are sunk!':
+          console.log('You are victorious');
+          updateBotGrid();
+          clearEventListener(botGridArea);
+          ps.publish('updateTooltip', { newText: 'You are victorious!', color: '' });
+          declareWinner(true);
+          break;
+        default:
+          break;
       }
-      sendUserAttack();
     }
   }
 

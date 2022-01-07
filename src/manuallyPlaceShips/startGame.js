@@ -1,4 +1,5 @@
 import ps from '../pubsub/pubsub';
+import dom from '../domCreator/domCreator';
 import Player from '../player/player';
 import cached from '../cacheDom/cacheDom';
 import renderGameArea from '../domComponents/gameAreaDom';
@@ -15,8 +16,10 @@ export default function startGame(userObj) {
   bot.randomlyPlaceAllShips();
 
   const grids = renderGameArea();
-  gameArea.appendChild(grids.playerGridArea);
-  gameArea.appendChild(grids.botGridArea);
+  const manualGridWrap = dom({ attributes: [{ id: 'manualGridWrap' }] });
+  manualGridWrap.appendChild(grids.playerGridArea);
+  manualGridWrap.appendChild(grids.botGridArea);
+  gameArea.appendChild(manualGridWrap);
 
   const updatePlayerGridManualGame = () => renderPlayerGrid(userObj.getboard, grids.playerGridArea);
   ps.subscribe('updatePlayerGridManualGame', updatePlayerGridManualGame);

@@ -1,4 +1,5 @@
 import ps from '../pubsub/pubsub';
+import dom from '../domCreator/domCreator';
 import cached from '../cacheDom/cacheDom';
 import Player from '../player/player';
 import renderGameArea from '../domComponents/gameAreaDom';
@@ -15,8 +16,10 @@ function randomLoop() {
 
   const grids = renderGameArea();
   const { gameArea } = cached;
-  gameArea.appendChild(grids.playerGridArea);
-  gameArea.appendChild(grids.botGridArea);
+  const randomGridWrapper = dom({ attributes: [{ id: 'randomGridWrapper' }] });
+  randomGridWrapper.appendChild(grids.playerGridArea);
+  randomGridWrapper.appendChild(grids.botGridArea);
+  gameArea.appendChild(randomGridWrapper);
 
   const updatePlayerGridRandomGame = () => renderPlayerGrid(user.getboard, grids.playerGridArea);
   ps.subscribe('updatePlayerGridRandomGame', updatePlayerGridRandomGame);

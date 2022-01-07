@@ -25,10 +25,19 @@ export default function placeShipsSetup(domEl, rotateState, currentShip, userObj
       const arr = getCorrectArray(target);
       const foo = userObj.placeShip(currentShip, arr);
       if (foo) {
+        ps.publish('updateTooltip', {
+          newText: `ship successfully placed. Click to place the next one.`,
+          color: '',
+        });
         ps.publish('updatePlayerGridManualPlacement');
         ps.publish('removeEvents');
         ps.publish('shipPlaced');
       }
+      if (!foo)
+        ps.publish('updateTooltip', {
+          newText: 'not able to place ship there. Click to try again.',
+          color: '',
+        });
     }
   }
   function handleMouseover(e) {

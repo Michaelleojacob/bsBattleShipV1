@@ -1,13 +1,26 @@
+#rotateWrap {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* CSS */
 #startLoopBtnWrap {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
   width: 90%;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
-#manual,
-#random {
+#rotateBtn {
   align-items: center;
   border: 0;
   background-color: #0a66c2e0;
@@ -23,11 +36,10 @@
   font-weight: 600;
   justify-content: center;
   line-height: 20px;
-  max-width: 480px;
-  min-height: 40px;
+  max-width: 5rem;
+  min-height: 2rem;
   min-width: 0px;
   overflow: hidden;
-  padding: 0.5em;
   padding-left: 20px;
   padding-right: 20px;
   text-align: center;
@@ -39,22 +51,18 @@
   vertical-align: middle;
 }
 
-#manual:hover,
-#manual:focus,
-#random:hover,
-#random:focus {
+#rotateBtn:hover,
+#rotateBtn:focus {
   background-color: #16437e;
   color: #ffffff;
 }
 
-#manual:active,
-#random:active {
+#rotateBtn:active {
   background: #09223b;
   color: rgb(255, 255, 255, 0.7);
 }
 
-#manual:disabled,
-#random:disabled {
+#rotateBtn:disabled {
   cursor: not-allowed;
   background: rgba(0, 0, 0, 0.08);
   color: rgba(0, 0, 0, 0.3);
