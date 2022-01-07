@@ -22,6 +22,7 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
 
   const { gameArea } = cached;
   const botGridArea = gameArea.querySelector('#botGridArea');
+  const playerGridArea = gameArea.querySelector('#playerGridArea');
 
   const getRandomLegalCell = (obj) => {
     const keys = Object.keys(obj);
@@ -82,6 +83,10 @@ function enableAttacking({ manualOrRandom, botUnderAttack, userUnderAttack, user
     }
   }
 
+  const publishTooltip = () =>
+    ps.publish('updateTooltip', { newText: `wrong board silly`, color: '' });
+
+  playerGridArea.addEventListener('click', publishTooltip, true);
   botGridArea.addEventListener('click', sendAttack, true);
 }
 

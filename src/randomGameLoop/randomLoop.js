@@ -16,10 +16,10 @@ function randomLoop() {
 
   const grids = renderGameArea();
   const { gameArea } = cached;
-  const randomGridWrapper = dom({ attributes: [{ id: 'randomGridWrapper' }] });
-  randomGridWrapper.appendChild(grids.playerGridArea);
-  randomGridWrapper.appendChild(grids.botGridArea);
-  gameArea.appendChild(randomGridWrapper);
+  const randomGridWrap = dom({ attributes: [{ id: 'randomGridWrap' }] });
+  randomGridWrap.appendChild(grids.playerGridArea);
+  randomGridWrap.appendChild(grids.botGridArea);
+  gameArea.appendChild(randomGridWrap);
 
   const updatePlayerGridRandomGame = () => renderPlayerGrid(user.getboard, grids.playerGridArea);
   ps.subscribe('updatePlayerGridRandomGame', updatePlayerGridRandomGame);
