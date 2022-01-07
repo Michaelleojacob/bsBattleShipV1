@@ -7,6 +7,10 @@
   text-align: center;
   align-items: center;
   gap: 0.5rem;
+  font-size: clamp(1.25rem, 2rem, 16px);
+}
+#shipNameWrap {
+  font-size: clamp(1.25rem, 2rem, 16px);
 }
 
 /* CSS */

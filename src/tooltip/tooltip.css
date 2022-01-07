@@ -1,3 +1,6 @@
 #tooltip {
   margin-bottom: 0.5rem;
+  font-size: clamp(1.25rem, 2rem, 16px);
+  width: 90%;
+  text-align: center;
 }
