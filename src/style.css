@@ -2,6 +2,7 @@
 @import url('./styles/container.css');
 @import url('./socials/socials.css');
 @import url('./tooltip/tooltip.css');
+@import url('./gameLoop//gameloop.css');
 @import url('./styles/gameboards.css');
 @import url('./manuallyPlaceShips/manuallyPlaceShips.css');
 @import url('./header/headerstyle.css');

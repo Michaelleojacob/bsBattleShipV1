@@ -8,18 +8,23 @@ import randomLoop from '../randomGameLoop/randomLoop';
 export default function startGameLoop() {
   const { tooltipAndGameAreaWrap } = cached;
 
-  const gameArea = dom({ id: 'gameArea' });
+  const gameArea = dom({ attributes: [{ id: 'gameArea' }] });
+
+  const startLoopBtnWrap = dom({ attributes: [{ id: 'startLoopBtnWrap' }] });
 
   const manualloopbtn = dom({
     tag: 'button',
-    text: 'I will place my ship manually',
+    text: 'Manually place ships',
     attributes: [{ id: 'manual' }],
   });
   const randomloopbtn = dom({
     tag: 'button',
-    text: 'place ships for me',
+    text: 'randomly place ships',
     attributes: [{ id: 'random' }],
   });
+
+  startLoopBtnWrap.appendChild(manualloopbtn);
+  startLoopBtnWrap.appendChild(randomloopbtn);
 
   manualloopbtn.addEventListener('click', () => {
     manuallyPlaceShips();
@@ -39,8 +44,7 @@ export default function startGameLoop() {
     removeAllChildNodes(gameArea);
     cached.gameArea = gameArea;
     ps.publish('wipeGameArea');
-    gameArea.appendChild(manualloopbtn);
-    gameArea.appendChild(randomloopbtn);
+    gameArea.appendChild(startLoopBtnWrap);
     tooltipAndGameAreaWrap.appendChild(gameArea);
     ps.publish('updateTooltip', { newText: 'please select an option', color: 'black' });
   }
